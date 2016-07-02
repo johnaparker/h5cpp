@@ -1,0 +1,11 @@
+# build environment
+build/
+a.out
+*.so
+*.o
+
+# h5 files
+*.h5
+
+# swap files
+*.sw?
