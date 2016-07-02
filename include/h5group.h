@@ -10,10 +10,12 @@
 #include "h5attr.h"
 
 
+using dset_iter = std::map<std::string, std::unique_ptr<h5dset>>::iterator;
+using dset_pair = std::pair<std::string, std::unique_ptr<h5dset>>;
 
 class h5group {
 public:
-    h5group(std::string name);
+    h5group(std::string name, hid_t where);
 
     void create_dataset(std::string name, hid_t datatype, 
               int drank, hsize_t* dims);
@@ -21,15 +23,13 @@ public:
     void create_attribute(std::string name, hid_t datatype, 
               int drank, hsize_t* dims);
 
-    ~h5group();
-
 private:
     std::string name;
     hid_t group_id;
     herr_t status;
     
-    std::map<std::string, h5dset> dsets;
-    std::map<std::string, h5attr> attrs;
+    std::map<std::string, std::unique_ptr<h5dset>> dsets;
+    std::map<std::string, std::unique_ptr<h5attr>> attrs;
 };
 
 #endif

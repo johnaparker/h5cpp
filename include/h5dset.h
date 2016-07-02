@@ -7,6 +7,8 @@
 
 #include "h5attr.h"
 
+using attr_iter = std::map<std::string, std::unique_ptr<h5attr>>::iterator;
+using attr_pair = std::pair<std::string, std::unique_ptr<h5attr>>;
 
 class h5dset {
 public:
@@ -16,14 +18,12 @@ public:
     void create_attribute(std::string name, hid_t datatype, 
             int drank, hsize_t* dims);
 
-    ~h5dset();
-
 private:
     std::string name;
-    hid_t dataset_id;
+    hid_t dset_id, dataspace_id;
     herr_t status;
 
-    std::map<std::string, h5attr> attrs;
+    std::map<std::string, std::unique_ptr<h5attr>> attrs;
 };
 
 #endif
