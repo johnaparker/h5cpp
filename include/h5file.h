@@ -5,6 +5,7 @@
 #include <memory>
 #include "boost/multi_array.hpp"
 #include <string>
+#include <vector>
 #include <map>
 
 #include "h5group.h"
@@ -24,9 +25,9 @@ public:
 
     void create_group(std::string name);
     void create_dataset(std::string name, std::string where, 
-            hid_t datatype, int drank, hsize_t* dims);
+            hid_t datatype, std::vector<hsize_t> dims);
     void create_attribute(std::string name, std::string where, 
-            hid_t datatype, int drank, hsize_t* dims);
+            hid_t datatype, std::vector<hsize_t> dims);
 
     void write_data(std::string name, std::string where,
             const void* data, hid_t datatype);

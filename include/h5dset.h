@@ -4,6 +4,7 @@
 #include "hdf5.h"
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "h5attr.h"
 
@@ -13,10 +14,10 @@ using attr_pair = std::pair<std::string, std::unique_ptr<h5attr>>;
 class h5dset {
 public:
     h5dset(std::string name, hid_t where, hid_t datatype,
-            int drank, hsize_t* dims);
+            std::vector<hsize_t> dims);
 
     void create_attribute(std::string name, hid_t datatype, 
-            int drank, hsize_t* dims);
+            std::vector<hsize_t> dims);
 
     void write(const void* data, hid_t datatype);
 

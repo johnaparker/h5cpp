@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include <map>
+#include <vector>
 
 #include "h5dset.h"
 #include "h5attr.h"
@@ -20,10 +21,10 @@ public:
     dset_iter find_dset(std::string name);
 
     void create_dataset(std::string name, hid_t datatype, 
-              int drank, hsize_t* dims);
+              std::vector<hsize_t> dims);
 
     void create_attribute(std::string name, hid_t datatype, 
-              int drank, hsize_t* dims);
+              std::vector<hsize_t> dims);
 
     ~h5group() {
         H5Gclose(group_id);

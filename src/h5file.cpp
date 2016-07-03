@@ -33,26 +33,26 @@ void h5file::create_group(string name) {
 }
 
 void h5file::create_dataset(string name, string where, hid_t datatype,
-            int drank, hsize_t* dims) {
+            vector<hsize_t> dims) {
     if (where == "/") {
-        auto new_dset = make_unique<h5dset>(name, file_id, datatype, drank, dims);
+        auto new_dset = make_unique<h5dset>(name, file_id, datatype, dims);
         dsets.insert(dset_pair(name,move(new_dset)));
     }
     else {
         group_iter iter = find_group(where);
-        iter->second->create_dataset(name, datatype, drank, dims);
+        iter->second->create_dataset(name, datatype, dims);
     }
 }
 
 void h5file::create_attribute(string name, string where, hid_t datatype,
-            int drank, hsize_t* dims) {
+            vector<hsize_t> dims) {
     if (where == "/") {
-        auto new_attr = make_unique<h5attr>(name, file_id, datatype, drank, dims);
+        auto new_attr = make_unique<h5attr>(name, file_id, datatype, dims);
         attrs.insert(attr_pair(name,move(new_attr)));
     }
     else {
         group_iter iter = find_group(where);
-        iter->second->create_attribute(name, datatype, drank, dims);
+        iter->second->create_attribute(name, datatype, dims);
     }
 }
 
