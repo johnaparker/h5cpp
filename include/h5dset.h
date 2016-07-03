@@ -16,8 +16,7 @@ public:
     h5dset(std::string name, hid_t where, hid_t datatype,
             std::vector<hsize_t> dims);
 
-    void create_attribute(std::string name, hid_t datatype, 
-            std::vector<hsize_t> dims);
+    std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
 
     void write(const void* data, hid_t datatype);
 

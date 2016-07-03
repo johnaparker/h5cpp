@@ -42,5 +42,6 @@ int main() {
     auto a1 = f.create_attribute("dx", H5T_NATIVE_INT,  a_dims);
     auto a2 = g1->create_attribute("dx", H5T_NATIVE_INT, a_dims);
     auto a3 = g2->create_attribute("dt", H5T_NATIVE_INT, a_dims);
+    auto a4 = d2->create_attribute("new", H5T_NATIVE_INT, a_dims);
 }
 
