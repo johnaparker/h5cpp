@@ -9,8 +9,13 @@ h5attr::h5attr(string name, hid_t where, hid_t datatype,
     dataspace_id = H5Screate_simple(drank, &dims[0], nullptr);
     attr_id = H5Acreate2(where, name.c_str(), datatype,
                     dataspace_id, H5P_DEFAULT,H5P_DEFAULT);
-    //status = H5Aclose(attr_id);
-    //status = H5Sclose(dataspace_id);
+}
+
+h5attr::h5attr(hid_t attr_id): attr_id(attr_id) {
+    const int MAX_NAME = 1024;
+    char attr_name[MAX_NAME];
+    H5Iget_name(attr_id, attr_name, MAX_NAME); 
+    name = string(attr_name);
 }
 
 void h5attr::write(const void* data) {

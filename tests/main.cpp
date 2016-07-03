@@ -29,12 +29,15 @@ int main() {
     int new_value = -1;
 
 
-    h5file f("test.h5");
 
-    auto g1 = f.create_group("/sub");
+    h5file f("test.h5", H5F_ACC_TRUNC);
+    {
+        auto g1 = f.create_group("/sub");
+    }
     auto g2 = f.create_group("/sub/other");
 
-    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, dims);
+    auto g1 = f.open_group("/sub");
+    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, {1,2});
     auto d2 = g1->create_dataset("data", H5T_NATIVE_INT, dims);
     auto d3 = g2->create_dataset("data", H5T_NATIVE_INT, dims);
     

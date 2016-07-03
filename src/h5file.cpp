@@ -9,43 +9,41 @@ h5file::h5file(string name, unsigned flags): filename(name) {
             H5P_DEFAULT);
 }
 
-group_iter h5file::find_group(std::string name) {
-    group_iter iter = groups.find(name);
-    if (iter == groups.end()) {
-        string err = "Group \'" + name + "\' does not exist";
-        throw std::invalid_argument(err);
-    }
-    return iter;
-}
-
-dset_iter h5file::find_dset(std::string name) {
-    dset_iter iter = dsets.find(name);
-    if (iter == dsets.end()) {
-        string err = "Dataset \'" + name + "\' does not exist";
-        throw std::invalid_argument(err);
-    }
-    return iter;
-}
-
 unique_ptr<h5group> h5file::create_group(string name) {
     auto new_group = make_unique<h5group>(name, file_id);
     return new_group;
-    //groups.insert(group_pair(name,move(new_group)));
 }
 
 unique_ptr<h5dset> h5file::create_dataset(string name, hid_t datatype, vector<hsize_t> dims) {
     auto new_dset = make_unique<h5dset>(name, file_id, datatype, dims);
     return new_dset;
-    //dsets.insert(dset_pair(name,move(new_dset)));
-
 }
 
 unique_ptr<h5attr> h5file::create_attribute(string name, hid_t datatype,
             vector<hsize_t> dims) {
     auto new_attr = make_unique<h5attr>(name, file_id, datatype, dims);
     return new_attr;
-    //attrs.insert(attr_pair(name,move(new_attr)));
 }
+
+
+unique_ptr<h5group> h5file::open_group(string name) {
+    hid_t group_id = H5Gopen2(file_id, name.c_str(), H5P_DEFAULT); 
+    auto new_group = make_unique<h5group>(group_id);
+    return new_group;
+}
+
+unique_ptr<h5dset> h5file::open_dataset(string name) {
+    hid_t dset_id = H5Dopen2(file_id, name.c_str(), H5P_DEFAULT); 
+    auto new_dset = make_unique<h5dset>(dset_id);
+    return new_dset;
+}
+
+unique_ptr<h5attr> h5file::open_attribute(string name) {
+    hid_t attr_id = H5Aopen(file_id, name.c_str(), H5P_DEFAULT); 
+    auto new_attr = make_unique<h5attr>(attr_id);
+    return new_attr;
+}
+
 
 h5file::~h5file() {
     H5Fclose(file_id);
