@@ -24,6 +24,9 @@ int main() {
 
     vector<hsize_t> dims = {n,n};
     vector<hsize_t> a_dims = {1};
+    int dx = 2;
+    double dt = 3.2;
+    int new_value = -1;
 
 
     h5file f("test.h5");
@@ -35,13 +38,18 @@ int main() {
     auto d2 = g1->create_dataset("data", H5T_NATIVE_INT, dims);
     auto d3 = g2->create_dataset("data", H5T_NATIVE_INT, dims);
     
-    //f.write_data("data", "/", A.data(), H5T_NATIVE_INT);
-    //f.write_data("data", "/sub", A.data(), H5T_NATIVE_INT);
-    //f.write_data("data", "/sub/other", A.data(), H5T_NATIVE_INT);
+    d1->write(A.data(), H5T_NATIVE_INT);
+    d2->write(A.data(), H5T_NATIVE_INT);
+    d3->write(A.data(), H5T_NATIVE_INT);
 
     auto a1 = f.create_attribute("dx", H5T_NATIVE_INT,  a_dims);
     auto a2 = g1->create_attribute("dx", H5T_NATIVE_INT, a_dims);
-    auto a3 = g2->create_attribute("dt", H5T_NATIVE_INT, a_dims);
+    auto a3 = g2->create_attribute("dt", H5T_NATIVE_DOUBLE, a_dims);
     auto a4 = d2->create_attribute("new", H5T_NATIVE_INT, a_dims);
+
+    a1->write(&dx, H5T_NATIVE_INT);
+    a2->write(&dx, H5T_NATIVE_INT);
+    a3->write(&dt, H5T_NATIVE_DOUBLE);
+    a4->write(&new_value, H5T_NATIVE_INT);
 }
 

@@ -14,6 +14,9 @@ class h5attr {
 public:
     h5attr(std::string name, hid_t where, hid_t datatype,
             std::vector<hsize_t> dims);
+
+    void write(const void* data, hid_t datatype);
+
     ~h5attr() {
         H5Aclose(attr_id);
         H5Sclose(dataspace_id);

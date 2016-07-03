@@ -12,3 +12,7 @@ h5attr::h5attr(string name, hid_t where, hid_t datatype,
     //status = H5Aclose(attr_id);
     //status = H5Sclose(dataspace_id);
 }
+
+void h5attr::write(const void* data, hid_t datatype) {
+    status = H5Awrite(attr_id, datatype, data);
+}
