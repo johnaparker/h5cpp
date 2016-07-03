@@ -30,3 +30,7 @@ unique_ptr<h5attr> h5group::create_attribute(string name, hid_t datatype,
     return new_attr;
     //attrs.insert(attr_pair(name,move(new_attr)));
 }
+
+h5group::~h5group() {
+    H5Gclose(group_id);
+}

@@ -17,10 +17,7 @@ public:
 
     void write(const void* data);
 
-    ~h5attr() {
-        H5Aclose(attr_id);
-        H5Sclose(dataspace_id);
-    }
+    ~h5attr();
 
 private:
     std::string name;

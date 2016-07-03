@@ -20,10 +20,7 @@ public:
 
     void write(const void* data);
 
-    ~h5dset() {
-        H5Dclose(dset_id);
-        H5Sclose(dataspace_id);
-    }
+    ~h5dset();
 
 private:
     std::string name;

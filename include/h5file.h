@@ -29,7 +29,6 @@ public:
 
     ~h5file();
 
-
 private:
     std::string filename;
     hid_t file_id;
@@ -39,9 +38,6 @@ private:
     std::map<std::string, std::unique_ptr<h5dset>> dsets;
     std::map<std::string, std::unique_ptr<h5attr>> attrs;
 };
-
-
-
 
 
 

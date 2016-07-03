@@ -28,3 +28,8 @@ void h5dset::write(const void* data) {
     status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
                H5P_DEFAULT, data);
 }
+
+h5dset::~h5dset() {
+    H5Dclose(dset_id);
+    H5Sclose(dataspace_id);
+} 
