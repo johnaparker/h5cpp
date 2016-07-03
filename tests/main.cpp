@@ -27,13 +27,19 @@ int main() {
 
     h5file f("test.h5");
     f.create_group("/sub");
+    f.create_group("/sub/other");
+
     f.create_dataset("data", "/", H5T_NATIVE_INT, 2, dims);
     f.create_dataset("data", "/sub", H5T_NATIVE_INT, 2, dims);
+    f.create_dataset("data", "/sub/other", H5T_NATIVE_INT, 2, dims);
+
     f.write_data("data", "/", A.data(), H5T_NATIVE_INT);
     f.write_data("data", "/sub", A.data(), H5T_NATIVE_INT);
-    f.write_data("data", "/sub", A.data(), H5T_NATIVE_INT);
+    f.write_data("data", "/sub/other", A.data(), H5T_NATIVE_INT);
+
     f.create_attribute("dx", "/", H5T_NATIVE_INT, 2, dims);
     f.create_attribute("dx", "/sub", H5T_NATIVE_INT, 2, dims);
+    f.create_attribute("dt", "/sub/oher", H5T_NATIVE_INT, 2, dims);
 
     delete[] dims;
 }

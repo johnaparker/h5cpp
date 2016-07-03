@@ -5,8 +5,10 @@ using namespace std;
 
 dset_iter h5group::find_dset(string name) {
     dset_iter iter = dsets.find(name);
-    if (iter == dsets.end())
-        throw std::invalid_argument("Dataset name does not exist");
+    if (iter == dsets.end()) {
+        string err = "Dataset \'" + name + "\' does not exist";
+        throw std::invalid_argument(err);
+    }
     return iter;
 }
 

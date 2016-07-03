@@ -11,15 +11,19 @@ h5file::h5file(string name, unsigned flags): filename(name) {
 
 group_iter h5file::find_group(std::string name) {
     group_iter iter = groups.find(name);
-    if (iter == groups.end())
-        throw std::invalid_argument("Group name does not exist");
+    if (iter == groups.end()) {
+        string err = "Group \'" + name + "\' does not exist";
+        throw std::invalid_argument(err);
+    }
     return iter;
 }
 
 dset_iter h5file::find_dset(std::string name) {
     dset_iter iter = dsets.find(name);
-    if (iter == dsets.end())
-        throw std::invalid_argument("Dataset name does not exist");
+    if (iter == dsets.end()) {
+        string err = "Dataset \'" + name + "\' does not exist";
+        throw std::invalid_argument(err);
+    }
     return iter;
 }
 
