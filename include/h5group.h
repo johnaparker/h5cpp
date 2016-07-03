@@ -25,6 +25,10 @@ public:
     void create_attribute(std::string name, hid_t datatype, 
               int drank, hsize_t* dims);
 
+    ~h5group() {
+        H5Gclose(group_id);
+    }
+
 private:
     std::string name;
     hid_t group_id;

@@ -1,5 +1,6 @@
 #include "h5file.h"
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
 

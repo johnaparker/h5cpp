@@ -32,6 +32,8 @@ int main() {
     f.write_data("data", "/", A.data(), H5T_NATIVE_INT);
     f.write_data("data", "/sub", A.data(), H5T_NATIVE_INT);
     f.write_data("data", "/sub", A.data(), H5T_NATIVE_INT);
+    f.create_attribute("dx", "/", H5T_NATIVE_INT, 2, dims);
+    f.create_attribute("dx", "/sub", H5T_NATIVE_INT, 2, dims);
 
     delete[] dims;
 }

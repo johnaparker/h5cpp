@@ -20,6 +20,11 @@ public:
 
     void write(const void* data, hid_t datatype);
 
+    ~h5dset() {
+        H5Dclose(dset_id);
+        H5Sclose(dataspace_id);
+    }
+
 private:
     std::string name;
     hid_t dset_id, dataspace_id;

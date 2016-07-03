@@ -13,6 +13,10 @@ class h5attr {
 public:
     h5attr(std::string name, hid_t where, hid_t datatype,
             int drank, hsize_t* dims);
+    ~h5attr() {
+        H5Aclose(attr_id);
+        H5Sclose(dataspace_id);
+    }
 
 private:
     std::string name;
