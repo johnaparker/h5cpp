@@ -5,7 +5,8 @@ using namespace std;
 
 
 h5dset::h5dset(string name, hid_t where, hid_t datatype,
-            vector<hsize_t> dims): name(name), datatype(datatype) {
+            vector<hsize_t> dims): name(name), drank(dims.size()),
+                        dims(dims), datatype(datatype) {
 
     hsize_t drank = dims.size();
     dataspace_id = H5Screate_simple(drank, &dims[0], nullptr);
@@ -18,7 +19,18 @@ h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
     const int MAX_NAME = 1024;
     char dset_name[MAX_NAME];
     H5Iget_name(dset_id, dset_name, MAX_NAME); 
+
     name = string(dset_name);
+    dataspace_id = H5Dget_space(dset_id);
+
+    drank = H5Sget_simple_extent_ndims(dataspace_id);
+    auto p_dims = make_unique<hsize_t[]>(drank);
+    auto p_max_dims = make_unique<hsize_t[]>(drank);
+    H5Sget_simple_extent_dims(dataspace_id, p_dims.get(), p_max_dims.get());
+
+    dims.assign(p_dims.get(), p_dims.get()+drank);
+    max_dims.assign(p_max_dims.get(), p_max_dims.get()+drank);
+    datatype = H5Dget_type(dset_id);
 }
 
 unique_ptr<h5attr> h5dset::create_attribute(string name, hid_t datatype,
