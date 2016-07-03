@@ -5,7 +5,7 @@ using namespace std;
 
 
 h5dset::h5dset(string name, hid_t where, hid_t datatype,
-            vector<hsize_t> dims): name(name) {
+            vector<hsize_t> dims): name(name), datatype(datatype) {
 
     hsize_t drank = dims.size();
     dataspace_id = H5Screate_simple(drank, &dims[0], nullptr);
@@ -24,7 +24,7 @@ unique_ptr<h5attr> h5dset::create_attribute(string name, hid_t datatype,
     //attrs.insert(attr_pair(name,move(new_attr)));
 }
 
-void h5dset::write(const void* data, hid_t datatype) {
+void h5dset::write(const void* data) {
     status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
                H5P_DEFAULT, data);
 }

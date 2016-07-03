@@ -18,7 +18,7 @@ public:
 
     std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
 
-    void write(const void* data, hid_t datatype);
+    void write(const void* data);
 
     ~h5dset() {
         H5Dclose(dset_id);
@@ -28,6 +28,7 @@ public:
 private:
     std::string name;
     hid_t dset_id, dataspace_id;
+    hid_t datatype;
     herr_t status;
 
     std::map<std::string, std::unique_ptr<h5attr>> attrs;
