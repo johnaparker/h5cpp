@@ -25,19 +25,20 @@ int main() {
     vector<hsize_t> dims = {n,n};
 
     h5file f("test.h5");
-    f.create_group("/sub");
-    f.create_group("/sub/other");
 
-    f.create_dataset("data", "/", H5T_NATIVE_INT, dims);
-    f.create_dataset("data", "/sub", H5T_NATIVE_INT, dims);
-    f.create_dataset("data", "/sub/other", H5T_NATIVE_INT, dims);
+    auto g1 = f.create_group("/sub");
+    auto g2 = f.create_group("/sub/other");
 
-    f.write_data("data", "/", A.data(), H5T_NATIVE_INT);
-    f.write_data("data", "/sub", A.data(), H5T_NATIVE_INT);
-    f.write_data("data", "/sub/other", A.data(), H5T_NATIVE_INT);
+    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, dims);
+    //f.create_dataset("data", "/sub", H5T_NATIVE_INT, dims);
+    //f.create_dataset("data", "/sub/other", H5T_NATIVE_INT, dims);
 
-    f.create_attribute("dx", "/", H5T_NATIVE_INT,  dims);
-    f.create_attribute("dx", "/sub", H5T_NATIVE_INT, dims);
-    f.create_attribute("dt", "/sub/other", H5T_NATIVE_INT, dims);
+    //f.write_data("data", "/", A.data(), H5T_NATIVE_INT);
+    //f.write_data("data", "/sub", A.data(), H5T_NATIVE_INT);
+    //f.write_data("data", "/sub/other", A.data(), H5T_NATIVE_INT);
+
+    auto a1 = f.create_attribute("dx", H5T_NATIVE_INT,  dims);
+    //f.create_attribute("dx", "/sub", H5T_NATIVE_INT, dims);
+    //f.create_attribute("dt", "/sub/other", H5T_NATIVE_INT, dims);
 
 }

@@ -23,14 +23,9 @@ public:
     group_iter find_group(std::string name);
     dset_iter find_dset(std::string name);
 
-    void create_group(std::string name);
-    void create_dataset(std::string name, std::string where, 
-            hid_t datatype, std::vector<hsize_t> dims);
-    void create_attribute(std::string name, std::string where, 
-            hid_t datatype, std::vector<hsize_t> dims);
-
-    void write_data(std::string name, std::string where,
-            const void* data, hid_t datatype);
+    std::unique_ptr<h5group> create_group(std::string name);
+    std::unique_ptr<h5dset> create_dataset(std::string name, hid_t datatype, std::vector<hsize_t> dims);
+    std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
 
     ~h5file();
 
