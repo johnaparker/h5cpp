@@ -9,3 +9,6 @@ a.out
 
 # swap files
 *.sw?
+
+# tag file
+tags

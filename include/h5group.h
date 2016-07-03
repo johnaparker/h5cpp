@@ -17,6 +17,8 @@ class h5group {
 public:
     h5group(std::string name, hid_t where);
 
+    dset_iter find_dset(std::string name);
+
     void create_dataset(std::string name, hid_t datatype, 
               int drank, hsize_t* dims);
 

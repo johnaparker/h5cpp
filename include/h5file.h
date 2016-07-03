@@ -18,11 +18,18 @@ using group_pair = std::pair<std::string, std::unique_ptr<h5group>>;
 class h5file {
 public:
     h5file(std::string name, unsigned flags = H5F_ACC_TRUNC);
+
+    group_iter find_group(std::string name);
+    dset_iter find_dset(std::string name);
+
     void create_group(std::string name);
     void create_dataset(std::string name, std::string where, 
             hid_t datatype, int drank, hsize_t* dims);
     void create_attribute(std::string name, std::string where, 
             hid_t datatype, int drank, hsize_t* dims);
+
+    void write_data(std::string name, std::string where,
+            const void* data, hid_t datatype);
 
     ~h5file();
 

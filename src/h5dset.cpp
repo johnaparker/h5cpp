@@ -21,3 +21,8 @@ void h5dset::create_attribute(string name, hid_t datatype, int drank,
     auto new_attr = make_unique<h5attr>(name, dset_id, datatype, drank, dims);
     attrs.insert(attr_pair(name,move(new_attr)));
 }
+
+void h5dset::write(const void* data, hid_t datatype) {
+    status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
+               H5P_DEFAULT, data);
+}

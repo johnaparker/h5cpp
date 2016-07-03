@@ -18,6 +18,8 @@ public:
     void create_attribute(std::string name, hid_t datatype, 
             int drank, hsize_t* dims);
 
+    void write(const void* data, hid_t datatype);
+
 private:
     std::string name;
     hid_t dset_id, dataspace_id;

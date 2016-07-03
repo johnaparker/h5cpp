@@ -3,6 +3,13 @@
 
 using namespace std;
 
+dset_iter h5group::find_dset(string name) {
+    dset_iter iter = dsets.find(name);
+    if (iter == dsets.end())
+        throw std::invalid_argument("Dataset name does not exist");
+    return iter;
+}
+
 h5group::h5group(string name, hid_t where): name(name) {
     group_id = H5Gcreate2(where, name.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
     //status = H5Gclose(group_id);
