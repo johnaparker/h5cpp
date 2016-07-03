@@ -20,6 +20,10 @@ public:
 
 private:
     std::string name;
+    int drank;
+    std::vector<hsize_t> dims;
+    std::vector<hsize_t> max_dims;
+
     hid_t attr_id, dataspace_id;
     hid_t datatype;
     herr_t status;

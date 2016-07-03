@@ -44,6 +44,12 @@ unique_ptr<h5attr> h5file::open_attribute(string name) {
     return new_attr;
 }
 
+unique_ptr<h5attr> h5file::open_attribute_by_name(string attr_name, string name) {
+    hid_t attr_id = H5Aopen_by_name(file_id, name.c_str(),
+                      attr_name.c_str(), H5P_DEFAULT, H5P_DEFAULT); 
+    auto new_attr = make_unique<h5attr>(attr_id);
+    return new_attr;
+}
 
 h5file::~h5file() {
     H5Fclose(file_id);
