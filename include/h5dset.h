@@ -7,11 +7,12 @@
 #include <vector>
 
 #include "h5attr.h"
+#include "h5dspace.h"
 
 class h5dset {
 public:
     h5dset(std::string name, hid_t where, hid_t datatype,
-            std::vector<hsize_t> dims);
+            h5dspace space);
     explicit h5dset(hid_t group_id);
 
     std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
@@ -22,11 +23,10 @@ public:
 
 private:
     std::string name;
-    int drank;
-    std::vector<hsize_t> dims;
-    std::vector<hsize_t> max_dims;
 
-    hid_t dset_id, dataspace_id;
+    h5dspace dspace;
+
+    hid_t dset_id;
     hid_t datatype;
     herr_t status;
 };

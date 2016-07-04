@@ -14,8 +14,9 @@ unique_ptr<h5group> h5file::create_group(string name) {
     return new_group;
 }
 
-unique_ptr<h5dset> h5file::create_dataset(string name, hid_t datatype, vector<hsize_t> dims) {
-    auto new_dset = make_unique<h5dset>(name, file_id, datatype, dims);
+unique_ptr<h5dset> h5file::create_dataset(string name, hid_t datatype, 
+        h5dspace dspace) {
+    auto new_dset = make_unique<h5dset>(name, file_id, datatype, dspace);
     return new_dset;
 }
 
