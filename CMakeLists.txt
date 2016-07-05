@@ -22,6 +22,7 @@ endif()
 
 #Include the headers
 include_directories(include)
+file(GLOB_RECURSE HEADERS "include/*.h")
  
 #Define the sources
 file(GLOB_RECURSE SOURCES "src/*.cpp")
@@ -43,9 +44,6 @@ target_link_libraries(foo ${PROJECT_LINK_LIBS} )
 #add_test(SimpleRun simple)
 
 #Set the location for library installation
-#install(TARGETS h5cpp DESTINATION lib)
-#install(FILES ${MAIN_HEADERS} DESTINATION include/h5cpp)
-#install(FILES ${MONITORS_HEADERS} DESTINATION include/h5cpp/monitors)
-#install(FILES ${OBJECTS_HEADERS} DESTINATION include/h5cpp/objects)
-#install(FILES ${SOURCES_HEADERS} DESTINATION include/h5cpp/sources)
-#install(FILES include/h5cpp.h DESTINATION include)
+install(TARGETS h5cpp DESTINATION lib)
+install(FILES ${HEADERS} DESTINATION include/h5cpp)
+install(FILES include/h5cpp.h DESTINATION include)

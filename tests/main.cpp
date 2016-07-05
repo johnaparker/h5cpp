@@ -2,7 +2,7 @@
 #include "boost/multi_array.hpp"
 #include "hdf5.h"
 #include <memory>
-#include "h5file.h"
+#include "h5cpp.h"
 #include <vector>
 
 using namespace std;
