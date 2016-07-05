@@ -4,6 +4,9 @@
 #include "hdf5.h"
 #include <vector>
 
+
+extern hsize_t inf;
+
 struct dataspace {
     explicit dataspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},
             std::vector<hsize_t> chunk_dims={}, bool compressed=false);

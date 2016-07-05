@@ -23,7 +23,7 @@ int main() {
     }
 
     vector<hsize_t> dims = {n,n};
-    vector<hsize_t> max_dims = {H5S_UNLIMITED, H5S_UNLIMITED};
+    vector<hsize_t> max_dims = {inf, inf};
     vector<hsize_t> chunk_dims = {n,2*n};
     vector<hsize_t> a_dims = {1};
     int dx = 2;
@@ -47,6 +47,5 @@ int main() {
     auto a2 = g1->create_attribute("dx", dtype::Int, ds_a);
     d1->create_attribute("dx", dtype::Int, ds_a);
     a2->write(A.data());
-
 }
 

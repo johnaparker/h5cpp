@@ -4,6 +4,8 @@
 
 using namespace std;
 
+hsize_t inf = H5S_UNLIMITED;
+
 dataspace::dataspace(vector<hsize_t> dims, vector<hsize_t> max_dims_, 
                      vector<hsize_t> chunk_dims, bool compressed):
                 dims(dims), max_dims(max_dims_), chunk_dims(chunk_dims),
