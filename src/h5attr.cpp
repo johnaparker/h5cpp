@@ -7,7 +7,7 @@ using namespace std;
 h5attr::h5attr(string name, hid_t where, hid_t datatype,
             vector<hsize_t> dims): name(name), drank(dims.size()),
                               dims(dims), datatype(datatype) {
-    dataspace_id = H5Screate_simple(drank, &dims[0], nullptr);
+    dataspace_id = H5Screate_simple(drank, dims.data(), nullptr);
     attr_id = H5Acreate2(where, name.c_str(), datatype,
                     dataspace_id, H5P_DEFAULT,H5P_DEFAULT);
 }

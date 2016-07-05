@@ -31,13 +31,17 @@ int main() {
     int new_value = -1;
 
     dataspace ds(dims, max_dims, chunk_dims);
+    //dataspace ds(dims);
     h5file f("test.h5", H5F_ACC_TRUNC);
 
+    {
     auto d1 = f.create_dataset("data", H5T_NATIVE_INT, ds);
+    }
+    auto d1 = f.open_dataset("data");
     d1->extend({n, 2*n});
     d1->select({0,3},{3,3});
     d1->write(A.data());
 
-    d1->append(A.data());
+    //d1->append(A.data());
 }
 

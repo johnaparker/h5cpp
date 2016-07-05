@@ -9,6 +9,9 @@ dataspace::dataspace(vector<hsize_t> dims, vector<hsize_t> max_dims,
                 compressed(compressed) {
     
     drank = dims.size(); 
+    if (max_dims.empty())
+        max_dims = dims;
+
     for (hsize_t i = 0; i != drank; i++) {
         if (max_dims[i] > dims[i])
             extendable = true;
@@ -46,7 +49,18 @@ h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
 
     H5Iget_name(dset_id, dset_name, MAX_NAME); 
     name = string(dset_name);
+
+    dspace_id = H5Dget_space(dset_id);
     datatype = H5Dget_type(dset_id);
+    prop = H5Dget_create_plist(dset_id);
+
+    hsize_t drank = H5Sget_simple_extent_ndims(dspace_id);
+    auto p_dims = make_unique<hsize_t[]>(drank);
+    auto p_max_dims = make_unique<hsize_t[]>(drank);
+    H5Sget_simple_extent_dims(dspace_id, p_dims.get(), p_max_dims.get());
+    vector<hsize_t> dims(p_dims.get(), p_dims.get() + drank);
+    vector<hsize_t> max_dims(p_max_dims.get(), p_max_dims.get() + drank);
+    dspace = dataspace(dims, max_dims); 
 }
 
 unique_ptr<h5attr> h5dset::create_attribute(string name, hid_t datatype,
