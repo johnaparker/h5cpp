@@ -11,9 +11,12 @@ h5dset::h5dset(string name, hid_t where, dtype datatype_, dataspace dspace):
     datatype = getDtype(datatype_);
     memspace = H5P_DEFAULT;
     prop = H5P_DEFAULT;
-    if (dspace.extendable) {
+    if (dspace.chunked || dspace.extendable) {
         prop = H5Pcreate(H5P_DATASET_CREATE);
         status = H5Pset_chunk(prop, dspace.drank, dspace.chunk_dims.data());
+        if (dspace.compressed) {
+            status = H5Pset_deflate(prop, 6);
+        }
     }
 
     dspace_id = H5Screate_simple(dspace.drank, dspace.dims.data(), 
