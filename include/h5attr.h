@@ -7,11 +7,12 @@
 #include <map>
 #include <vector>
 
+#include "h5dspace.h"
+
 
 class h5attr {
 public:
-    h5attr(std::string name, hid_t where, hid_t datatype,
-            std::vector<hsize_t> dims);
+    h5attr(std::string name, hid_t where, hid_t datatype, dataspace dspace);
     explicit h5attr(hid_t attr_id);
 
     void write(const void* data);
@@ -20,11 +21,10 @@ public:
 
 private:
     std::string name;
-    int drank;
-    std::vector<hsize_t> dims;
-    std::vector<hsize_t> max_dims;
 
-    hid_t attr_id, dataspace_id;
+    hid_t attr_id;
+    hid_t dspace_id;
+    dataspace dspace;
     hid_t datatype;
     herr_t status;
 };

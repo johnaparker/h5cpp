@@ -7,17 +7,8 @@
 #include <vector>
 
 #include "h5attr.h"
+#include "h5dspace.h"
 
-struct dataspace {
-    dataspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},
-            std::vector<hsize_t> chunk_dims={}, bool compressed=false);
-    dataspace() = default;
-
-    int drank;
-    std::vector<hsize_t> dims, max_dims, chunk_dims;
-    bool extendable = false, unlimited = false;
-    bool chunked = false, compressed = false;
-};
 
 class h5dset {
 public:
