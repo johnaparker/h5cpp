@@ -39,9 +39,30 @@ unique_ptr<h5attr> h5dset::create_attribute(string name, hid_t datatype,
     return new_attr;
 }
 
+void h5dset::extend(vector<hsize_t> size) {
+    H5Dset_extent(dset_id, &size[0]);
+}
+
+void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,
+                    vector<hsize_t> stride, vector<hsize_t> block) {
+
+    filespace = H5Dget_space(dset_id);
+    status = H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offset.data(),
+            stride.data(), count.data(), block.data());
+    memspace = H5Screate_simple(dspace.rank(), count.data(), nullptr);
+}
+
 void h5dset::write(const void* data) {
-    status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
+    if (!dspace.isExtendable())
+        status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
                H5P_DEFAULT, data);
+    else {
+        status = H5Dwrite(dset_id, datatype, memspace, filespace, 
+                     H5P_DEFAULT, data);
+        H5Sclose(memspace);
+        H5Sclose(filespace);
+    }
+
 }
 
 h5dset::~h5dset() {
