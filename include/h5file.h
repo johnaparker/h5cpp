@@ -12,10 +12,16 @@
 #include "h5dset.h"
 #include "h5attr.h"
 
+enum class io {
+    w,       ///<  over-write
+    wn,      ///<  write new; fail if file already exists
+    r,       ///<  read only
+    rw       ///<  read-write
+};
 
 class h5file {
 public:
-    h5file(std::string name, unsigned flags = H5F_ACC_TRUNC);
+    h5file(std::string name, io flag);
 
     std::unique_ptr<h5group> create_group(std::string name);
     std::unique_ptr<h5dset> create_dataset(std::string name, hid_t datatype, dataspace dspace);

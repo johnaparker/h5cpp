@@ -4,9 +4,21 @@
 
 using namespace std;
 
-h5file::h5file(string name, unsigned flags): filename(name) {
-    file_id = H5Fcreate(name.c_str(), flags, H5P_DEFAULT,
-            H5P_DEFAULT);
+h5file::h5file(string name, io flag): filename(name) {
+    switch(flag) {
+        case io::w:
+            file_id = H5Fcreate(name.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT,
+            H5P_DEFAULT); break;
+        case io::wn:
+            file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT,
+            H5P_DEFAULT); break;
+        case io::r:
+            file_id = H5Fopen(name.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
+            break;
+        case io::rw:
+            file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+            break;
+    }
 }
 
 unique_ptr<h5group> h5file::create_group(string name) {
