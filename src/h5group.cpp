@@ -16,7 +16,7 @@ h5group::h5group(hid_t group_id): group_id(group_id) {
 }
 
 unique_ptr<h5dset> h5group::create_dataset(string name, hid_t datatype,
-        h5dspace dspace) {
+        dataspace dspace) {
     auto new_dset = make_unique<h5dset>(name, group_id, datatype, dspace);
     return new_dset;
 }

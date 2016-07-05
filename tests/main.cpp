@@ -30,10 +30,10 @@ int main() {
     double dt = 3.2;
     int new_value = -1;
 
-    h5dspace ds(dims, max_dims);
+    dataspace ds(dims, max_dims, chunk_dims);
     h5file f("test.h5", H5F_ACC_TRUNC);
 
-    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, ds, chunk_dims);
+    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, ds);
     d1->extend({n, 2*n});
     d1->select({0,3},{3,3});
     d1->write(A.data());

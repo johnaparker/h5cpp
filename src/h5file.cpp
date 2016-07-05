@@ -15,9 +15,8 @@ unique_ptr<h5group> h5file::create_group(string name) {
 }
 
 unique_ptr<h5dset> h5file::create_dataset(string name, hid_t datatype, 
-        h5dspace dspace, vector<hsize_t> chunk_dims, bool compressed) {
-    auto new_dset = make_unique<h5dset>(name, file_id, datatype, dspace,
-                                   chunk_dims, compressed);
+        dataspace dspace) {
+    auto new_dset = make_unique<h5dset>(name, file_id, datatype, dspace);
     return new_dset;
 }
 

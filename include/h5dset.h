@@ -7,13 +7,21 @@
 #include <vector>
 
 #include "h5attr.h"
-#include "h5dspace.h"
+
+struct dataspace {
+    dataspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},
+            std::vector<hsize_t> chunk_dims={}, bool compressed=false);
+    dataspace() = default;
+
+    int drank;
+    std::vector<hsize_t> dims, max_dims, chunk_dims;
+    bool extendable = false, unlimited = false;
+    bool chunked = false, compressed = false;
+};
 
 class h5dset {
 public:
-    h5dset(std::string name, hid_t where, hid_t datatype,
-            h5dspace space, std::vector<hsize_t> chunk_dims = {},
-            bool compressed = false);
+    h5dset(std::string name, hid_t where, hid_t datatype, dataspace dspace);
     explicit h5dset(hid_t group_id);
 
     std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
@@ -29,13 +37,9 @@ public:
 private:
     std::string name;
 
-    h5dspace dspace;
-    std::vector<hsize_t> chunk_dims;
-
-    bool chunked = false, compressed = false;
-
     hid_t dset_id;
-    hid_t filespace, memspace, prop;
+    hid_t dspace_id, filespace, memspace, prop;
+    dataspace dspace;
     hid_t datatype;
     herr_t status;
 };

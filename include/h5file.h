@@ -18,7 +18,7 @@ public:
     h5file(std::string name, unsigned flags = H5F_ACC_TRUNC);
 
     std::unique_ptr<h5group> create_group(std::string name);
-    std::unique_ptr<h5dset> create_dataset(std::string name, hid_t datatype, h5dspace dspace, std::vector<hsize_t> chunk_dims={}, bool compressed=false );
+    std::unique_ptr<h5dset> create_dataset(std::string name, hid_t datatype, dataspace dspace);
     std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
 
     std::unique_ptr<h5group> open_group(std::string name);
