@@ -31,7 +31,7 @@ int main() {
     int new_value = -1;
 
     dataspace ds(dims, max_dims, chunk_dims);
-    dataspace ds_a(dims);
+    dataspace ds_a(vector<hsize_t>{2,2});
     h5file f("test.h5", H5F_ACC_TRUNC);
 
     {
@@ -42,7 +42,8 @@ int main() {
     d1->extend({n, 2*n});
     d1->select({0,3},{3,3});
     d1->write(A.data());
-
     d1->append(A.data());
+    auto g1 = f.create_group("/sub");
+    g1->create_attribute("dx", H5T_NATIVE_INT, ds_a);
 }
 

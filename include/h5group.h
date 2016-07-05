@@ -18,7 +18,7 @@ public:
 
     std::unique_ptr<h5dset> create_dataset(std::string name, hid_t datatype, dataspace dspace);
 
-    std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
+    std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, dataspace dspace);
 
     ~h5group();
 

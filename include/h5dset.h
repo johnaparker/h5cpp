@@ -15,7 +15,7 @@ public:
     h5dset(std::string name, hid_t where, hid_t datatype, dataspace dspace);
     explicit h5dset(hid_t group_id);
 
-    std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
+    std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, dataspace dspace);
 
     void extend(std::vector<hsize_t> size);
     void select(std::vector<hsize_t> offset, std::vector<hsize_t> count,

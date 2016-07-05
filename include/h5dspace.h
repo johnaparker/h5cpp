@@ -5,7 +5,7 @@
 #include <vector>
 
 struct dataspace {
-    dataspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},
+    explicit dataspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},
             std::vector<hsize_t> chunk_dims={}, bool compressed=false);
     explicit dataspace(hid_t dspace_id, hid_t prop_id = H5P_DEFAULT);
     dataspace() = default;

@@ -36,9 +36,9 @@ h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
 }
 
 unique_ptr<h5attr> h5dset::create_attribute(string name, hid_t datatype,
-        vector<hsize_t> dims) {
+        dataspace dspace) {
 
-    auto new_attr = make_unique<h5attr>(name, dset_id, datatype, dims);
+    auto new_attr = make_unique<h5attr>(name, dset_id, datatype, dspace);
     return new_attr;
 }
 

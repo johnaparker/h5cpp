@@ -22,8 +22,8 @@ unique_ptr<h5dset> h5group::create_dataset(string name, hid_t datatype,
 }
 
 unique_ptr<h5attr> h5group::create_attribute(string name, hid_t datatype,
-        vector<hsize_t> dims) {
-    auto new_attr = make_unique<h5attr>(name, group_id, datatype, dims);
+        dataspace dspace) {
+    auto new_attr = make_unique<h5attr>(name, group_id, datatype, dspace);
     return new_attr;
 }
 
