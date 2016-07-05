@@ -16,9 +16,9 @@ public:
     h5group(std::string name, hid_t where);
     explicit h5group(hid_t group_id);
 
-    std::unique_ptr<h5dset> create_dataset(std::string name, hid_t datatype, dataspace dspace);
+    std::unique_ptr<h5dset> create_dataset(std::string name, dtype datatype, dataspace dspace);
 
-    std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, dataspace dspace);
+    std::unique_ptr<h5attr> create_attribute(std::string name, dtype datatype, dataspace dspace);
 
     ~h5group();
 

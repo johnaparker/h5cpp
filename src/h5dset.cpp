@@ -3,9 +3,10 @@
 
 using namespace std;
 
-h5dset::h5dset(string name, hid_t where, hid_t datatype, dataspace dspace):
-      name(name), datatype(datatype), dspace(dspace) {
+h5dset::h5dset(string name, hid_t where, dtype datatype_, dataspace dspace):
+      name(name), dspace(dspace) {
 
+    datatype = getDtype(datatype_);
     memspace = H5P_DEFAULT;
     prop = H5P_DEFAULT;
     if (dspace.extendable) {
@@ -35,10 +36,10 @@ h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
     dspace = dataspace(dspace_id, prop); 
 }
 
-unique_ptr<h5attr> h5dset::create_attribute(string name, hid_t datatype,
+unique_ptr<h5attr> h5dset::create_attribute(string name, dtype datatype_,
         dataspace dspace) {
 
-    auto new_attr = make_unique<h5attr>(name, dset_id, datatype, dspace);
+    auto new_attr = make_unique<h5attr>(name, dset_id, datatype_, dspace);
     return new_attr;
 }
 

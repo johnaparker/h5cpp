@@ -35,17 +35,17 @@ int main() {
     h5file f("test.h5", io::w);
 
     {
-    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, ds);
+    auto d1 = f.create_dataset("data", dtype::Int, ds);
     }
     auto d1 = f.open_dataset("data");
-    auto a1 = f.create_attribute("dx", H5T_NATIVE_INT,  ds_a);
+    auto a1 = f.create_attribute("dx", dtype::Int,  ds_a);
     d1->extend({n, 2*n});
     d1->select({0,3},{3,3});
     d1->write(A.data());
     d1->append(A.data());
     auto g1 = f.create_group("/sub");
-    auto a2 = g1->create_attribute("dx", H5T_NATIVE_INT, ds_a);
-    d1->create_attribute("dx", H5T_NATIVE_INT, ds_a);
+    auto a2 = g1->create_attribute("dx", dtype::Int, ds_a);
+    d1->create_attribute("dx", dtype::Int, ds_a);
     a2->write(A.data());
 
 }

@@ -26,13 +26,13 @@ unique_ptr<h5group> h5file::create_group(string name) {
     return new_group;
 }
 
-unique_ptr<h5dset> h5file::create_dataset(string name, hid_t datatype, 
+unique_ptr<h5dset> h5file::create_dataset(string name, dtype datatype, 
         dataspace dspace) {
     auto new_dset = make_unique<h5dset>(name, file_id, datatype, dspace);
     return new_dset;
 }
 
-unique_ptr<h5attr> h5file::create_attribute(string name, hid_t datatype, dataspace dspace) {
+unique_ptr<h5attr> h5file::create_attribute(string name, dtype datatype, dataspace dspace) {
     auto new_attr = make_unique<h5attr>(name, file_id, datatype, dspace);
     return new_attr;
 }

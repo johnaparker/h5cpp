@@ -15,13 +15,13 @@ h5group::h5group(hid_t group_id): group_id(group_id) {
     name = string(group_name);
 }
 
-unique_ptr<h5dset> h5group::create_dataset(string name, hid_t datatype,
+unique_ptr<h5dset> h5group::create_dataset(string name, dtype datatype,
         dataspace dspace) {
     auto new_dset = make_unique<h5dset>(name, group_id, datatype, dspace);
     return new_dset;
 }
 
-unique_ptr<h5attr> h5group::create_attribute(string name, hid_t datatype,
+unique_ptr<h5attr> h5group::create_attribute(string name, dtype datatype,
         dataspace dspace) {
     auto new_attr = make_unique<h5attr>(name, group_id, datatype, dspace);
     return new_attr;

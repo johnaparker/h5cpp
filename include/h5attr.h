@@ -10,9 +10,17 @@
 #include "h5dspace.h"
 
 
+enum class dtype {
+    Int,
+    Float,
+    Double
+};
+
+hid_t getDtype(dtype datatype);
+
 class h5attr {
 public:
-    h5attr(std::string name, hid_t where, hid_t datatype, dataspace dspace);
+    h5attr(std::string name, hid_t where, dtype datatype_, dataspace dspace);
     explicit h5attr(hid_t attr_id);
 
     void write(const void* data);

@@ -3,10 +3,18 @@
 
 using namespace std;
 
+hid_t getDtype(dtype datatype) {
+    switch(datatype) {
+        case dtype::Int: return H5T_NATIVE_INT; break;
+        case dtype::Float: return H5T_NATIVE_FLOAT; break;
+        case dtype::Double: return H5T_NATIVE_DOUBLE; break;
+    }
+}
 
-h5attr::h5attr(string name, hid_t where, hid_t datatype, dataspace dspace):
-            name(name), datatype(datatype), dspace(dspace) {
+h5attr::h5attr(string name, hid_t where, dtype datatype_, dataspace dspace):
+            name(name), dspace(dspace) {
 
+    datatype = getDtype(datatype_);
     dspace_id = H5Screate_simple(dspace.drank, dspace.dims.data(), nullptr);
     attr_id = H5Acreate2(where, name.c_str(), datatype,
                     dspace_id, H5P_DEFAULT,H5P_DEFAULT);
