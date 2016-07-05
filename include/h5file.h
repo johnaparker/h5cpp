@@ -12,6 +12,9 @@
 #include "h5dset.h"
 #include "h5attr.h"
 
+
+namespace h5cpp {
+
 enum class io {
     w,       ///<  over-write
     wn,      ///<  write new; fail if file already exists
@@ -41,6 +44,6 @@ private:
     herr_t status;
 };
 
-
+}
 
 #endif

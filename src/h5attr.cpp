@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace h5cpp {
+
 hid_t getDtype(dtype datatype) {
     switch(datatype) {
         case dtype::Int: return H5T_NATIVE_INT; break;
@@ -40,4 +42,6 @@ void h5attr::write(const void* data) {
 h5attr::~h5attr() {
     H5Aclose(attr_id);
     H5Sclose(dspace_id);
+}
+
 }

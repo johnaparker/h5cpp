@@ -3,6 +3,7 @@
 
 using namespace std;
 
+namespace h5cpp {
 
 h5group::h5group(string name, hid_t where): name(name) {
     group_id = H5Gcreate2(where, name.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
@@ -29,4 +30,6 @@ unique_ptr<h5attr> h5group::create_attribute(string name, dtype datatype,
 
 h5group::~h5group() {
     H5Gclose(group_id);
+}
+
 }

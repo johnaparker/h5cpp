@@ -1,0 +1,13 @@
+If file closes, make sure unique_ptrs are safe
+
+read calls
+
+add open calls to groups, dsets
+
+eliminate by_name in open_attribute by string parsing
+
+have select_and_write instead of select, write separate
+
+compression support
+
+put everything in namespace h5cpp

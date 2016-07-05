@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace h5cpp {
+
 h5dset::h5dset(string name, hid_t where, dtype datatype_, dataspace dspace):
       name(name), dspace(dspace) {
 
@@ -87,3 +89,5 @@ h5dset::~h5dset() {
     H5Pclose(prop);
     H5Dclose(dset_id);
 } 
+
+}

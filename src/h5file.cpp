@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace h5cpp {
+
 h5file::h5file(string name, io flag): filename(name) {
     switch(flag) {
         case io::w:
@@ -65,4 +67,6 @@ unique_ptr<h5attr> h5file::open_attribute_by_name(string attr_name, string name)
 
 h5file::~h5file() {
     H5Fclose(file_id);
+}
+
 }

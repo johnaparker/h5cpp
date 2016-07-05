@@ -9,6 +9,7 @@
 
 #include "h5dspace.h"
 
+namespace h5cpp {
 
 enum class dtype {
     Int,
@@ -36,5 +37,7 @@ private:
     hid_t datatype;
     herr_t status;
 };
+
+}
 
 #endif

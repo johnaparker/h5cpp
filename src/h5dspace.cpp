@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace h5cpp {
+
 hsize_t inf = H5S_UNLIMITED;
 
 dataspace::dataspace(vector<hsize_t> dims, vector<hsize_t> max_dims_, 
@@ -48,4 +50,6 @@ void dataspace::set_bools() {
     }
     if (!chunk_dims.empty())
         chunked = true;
+}
+
 }

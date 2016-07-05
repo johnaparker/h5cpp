@@ -10,6 +10,7 @@
 #include "h5dset.h"
 #include "h5attr.h"
 
+namespace h5cpp {
 
 class h5group {
 public:
@@ -27,5 +28,7 @@ private:
     hid_t group_id;
     herr_t status;
 };
+
+}
 
 #endif

@@ -6,6 +6,7 @@
 #include <vector>
 
 using namespace std;
+using namespace h5cpp;
 
 int main() {
     //boost array properties

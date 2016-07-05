@@ -10,6 +10,8 @@
 #include "h5dspace.h"
 
 
+namespace h5cpp {
+
 class h5dset {
 public:
     h5dset(std::string name, hid_t where, dtype datatype_, dataspace dspace);
@@ -34,5 +36,7 @@ private:
     hid_t datatype;
     herr_t status;
 };
+
+}
 
 #endif

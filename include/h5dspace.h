@@ -4,6 +4,7 @@
 #include "hdf5.h"
 #include <vector>
 
+namespace h5cpp {
 
 extern hsize_t inf;
 
@@ -21,5 +22,7 @@ struct dataspace {
 private:
     void set_bools();
 };
+
+}
 
 #endif
