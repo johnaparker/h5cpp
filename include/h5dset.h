@@ -12,7 +12,8 @@
 class h5dset {
 public:
     h5dset(std::string name, hid_t where, hid_t datatype,
-            h5dspace space);
+            h5dspace space, std::vector<hsize_t> chunk_dims = {},
+            bool compressed = false);
     explicit h5dset(hid_t group_id);
 
     std::unique_ptr<h5attr> create_attribute(std::string name, hid_t datatype, std::vector<hsize_t> dims);
@@ -25,8 +26,12 @@ private:
     std::string name;
 
     h5dspace dspace;
+    std::vector<hsize_t> chunk_dims;
+
+    bool chunked = false, compressed = false;
 
     hid_t dset_id;
+    hid_t memspace, prop;
     hid_t datatype;
     herr_t status;
 };

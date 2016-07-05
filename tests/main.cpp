@@ -23,17 +23,17 @@ int main() {
     }
 
     vector<hsize_t> dims = {n,n};
-    vector<hsize_t> max_dims = {n,n};
+    vector<hsize_t> max_dims = {n, H5S_UNLIMITED};
+    vector<hsize_t> chunk_dims = {2*n,2*n};
     vector<hsize_t> a_dims = {1};
     int dx = 2;
     double dt = 3.2;
     int new_value = -1;
 
     h5dspace ds(dims, max_dims);
-
     h5file f("test.h5", H5F_ACC_TRUNC);
+    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, ds, chunk_dims);
 
-    auto d1 = f.create_dataset("data", H5T_NATIVE_INT, ds);
     //d1->write(A.data());
 }
 

@@ -16,6 +16,10 @@ public:
 
     h5dspace(const h5dspace&);
 
+    bool isExtendable() const;
+
+    int rank() const;
+    
     hid_t id() const;
 
     ~h5dspace();
@@ -24,6 +28,9 @@ private:
     int drank;
     std::vector<hsize_t> dims;
     std::vector<hsize_t> max_dims;
+    std::vector<hsize_t> chunk_dims;
+
+    bool extendable = false, unlimited = false;
 
     hid_t dspace_id;
     herr_t status;

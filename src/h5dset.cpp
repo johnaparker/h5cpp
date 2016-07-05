@@ -5,15 +5,19 @@ using namespace std;
 
 
 h5dset::h5dset(string name, hid_t where, hid_t datatype,
-     h5dspace dspace): name(name), datatype(datatype),              
-                       dspace(dspace) {
+     h5dspace dspace, vector<hsize_t> chunk_dims, bool compressed): 
+      name(name), datatype(datatype), dspace(dspace), chunk_dims(chunk_dims),
+        compressed(compressed) {
 
-    //hsize_t      chunk_dims[2] = {2, 2};
-    //hid_t prop = H5Pcreate (H5P_DATASET_CREATE);
-    //status = H5Pset_chunk (prop, 3, chunk_dims);
+    memspace = H5P_DEFAULT;
+    prop = H5P_DEFAULT;
+    if (dspace.isExtendable()) {
+        prop = H5Pcreate(H5P_DATASET_CREATE);
+        status = H5Pset_chunk(prop, dspace.rank(), &chunk_dims[0]);
+    }
 
     dset_id = H5Dcreate2(where, name.c_str(), datatype,
-                    dspace.id(), H5P_DEFAULT,H5P_DEFAULT,
+                    dspace.id(), H5P_DEFAULT, prop,
                     H5P_DEFAULT);
 }
 
@@ -41,5 +45,6 @@ void h5dset::write(const void* data) {
 }
 
 h5dset::~h5dset() {
+    H5Pclose(prop);
     H5Dclose(dset_id);
 } 
