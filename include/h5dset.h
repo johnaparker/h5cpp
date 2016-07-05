@@ -22,6 +22,7 @@ public:
     void select(std::vector<hsize_t> offset, std::vector<hsize_t> count,
                 std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
     void write(const void* data);
+    void append(const void* data);
 
     ~h5dset();
 

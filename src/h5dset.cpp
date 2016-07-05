@@ -62,7 +62,27 @@ void h5dset::write(const void* data) {
         H5Sclose(memspace);
         H5Sclose(filespace);
     }
+}
 
+void h5dset::append(const void* data) {
+    hid_t ds = H5Dget_space(dset_id);
+    hsize_t drank = H5Sget_simple_extent_ndims(ds);
+    auto p_dims = make_unique<hsize_t[]>(drank);
+    auto p_max_dims = make_unique<hsize_t[]>(drank);
+    H5Sget_simple_extent_dims(ds, p_dims.get(), p_max_dims.get());
+    
+    vector<hsize_t> new_dims;
+    new_dims.assign(p_dims.get(), p_dims.get()+drank);
+    new_dims[drank-1] += 1;
+    extend(new_dims);
+
+    vector<hsize_t> offset(drank, 0);
+    offset[drank-1] = new_dims[drank-1] - 1;
+    vector<hsize_t> count(new_dims);
+    count[drank-1] = 1;
+    select(offset,count);
+
+    write(data);
 }
 
 h5dset::~h5dset() {

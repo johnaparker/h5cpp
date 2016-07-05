@@ -36,7 +36,8 @@ int main() {
     auto d1 = f.create_dataset("data", H5T_NATIVE_INT, ds, chunk_dims);
     d1->extend({n, 2*n});
     d1->select({0,3},{3,3});
-
     d1->write(A.data());
+
+    d1->append(A.data());
 }
 
