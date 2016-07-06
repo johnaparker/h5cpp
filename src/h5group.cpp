@@ -28,6 +28,18 @@ unique_ptr<h5attr> h5group::create_attribute(string name, dtype datatype,
     return new_attr;
 }
 
+unique_ptr<h5dset> h5group::open_dataset(string name) {
+    hid_t dset_id = H5Dopen2(group_id, name.c_str(), H5P_DEFAULT); 
+    auto new_dset = make_unique<h5dset>(dset_id);
+    return new_dset;
+}
+
+unique_ptr<h5attr> h5group::open_attribute(string name) {
+    hid_t attr_id = H5Aopen(group_id, name.c_str(), H5P_DEFAULT); 
+    auto new_attr = make_unique<h5attr>(attr_id);
+    return new_attr;
+}
+
 h5group::~h5group() {
     H5Gclose(group_id);
 }

@@ -82,6 +82,12 @@ void h5dset::append(const void* data) {
     write(data);
 }
 
+unique_ptr<h5attr> h5dset::open_attribute(string name) {
+    hid_t attr_id = H5Aopen(dset_id, name.c_str(), H5P_DEFAULT); 
+    auto new_attr = make_unique<h5attr>(attr_id);
+    return new_attr;
+}
+
 h5dset::~h5dset() {
     H5Pclose(prop);
     H5Dclose(dset_id);
