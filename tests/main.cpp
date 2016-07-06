@@ -13,7 +13,7 @@ int main() {
     const int drank = 2;
     using array_type = boost::multi_array<int, drank>;
     //using index = array_type::index;
-    size_t n = 3000;
+    size_t n = 3;
 
     //initialize the array
     array_type A(boost::extents[n][n]);
@@ -25,22 +25,23 @@ int main() {
 
     vector<hsize_t> dims = {n,n};
     vector<hsize_t> max_dims = {inf, inf};
-    vector<hsize_t> chunk_dims = {100,100};
+    vector<hsize_t> chunk_dims = {2,2};
     vector<hsize_t> a_dims = {1};
     int dx = 2;
     double dt = 3.2;
     int new_value = -1;
 
-    dataspace ds(dims, dims, chunk_dims, true);
+    dataspace ds(dims, max_dims, chunk_dims, true);
     dataspace ds_a(vector<hsize_t>{2,2});
     h5file f("test.h5", io::w);
 
     auto d1 = f.create_dataset("data", dtype::Int, ds);
     //auto d1 = f.open_dataset("data");
-    auto a1 = f.create_attribute("dx", dtype::Int,  ds_a);
-    d1->write(A.data());
-    //d1->extend({n, 2*n});
+    //auto a1 = f.create_attribute("dx", dtype::Int,  ds_a);
+    d1->extend({n, 2*n});
+    d1->select_write(A.data(), {0,3}, {3,3});
     //d1->select({0,3},{3,3});
+    //d1->write(A.data());
     //d1->append(A.data());
     //auto g1 = f.create_group("/sub");
     //auto a2 = g1->create_attribute("dx", dtype::Int, ds_a);

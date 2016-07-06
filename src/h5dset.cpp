@@ -53,25 +53,19 @@ void h5dset::extend(vector<hsize_t> size) {
     dspace.dims = size;
 }
 
-void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,
-                    vector<hsize_t> stride, vector<hsize_t> block) {
-
-    filespace = H5Dget_space(dset_id);
-    status = H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offset.data(),
-            stride.data(), count.data(), block.data());
-    memspace = H5Screate_simple(dspace.drank, count.data(), nullptr);
-}
 
 void h5dset::write(const void* data) {
-    if (!dspace.extendable)
-        status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
-               H5P_DEFAULT, data);
-    else {
-        status = H5Dwrite(dset_id, datatype, memspace, filespace, 
-                     H5P_DEFAULT, data);
-        H5Sclose(memspace);
-        H5Sclose(filespace);
-    }
+    status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
+           H5P_DEFAULT, data);
+}
+
+void h5dset::select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count, std::vector<hsize_t> stride, std::vector<hsize_t> block) {
+    
+    select(offset, count, stride, block);
+    status = H5Dwrite(dset_id, datatype, memspace, filespace, 
+                 H5P_DEFAULT, data);
+    H5Sclose(memspace);
+    H5Sclose(filespace);
 }
 
 void h5dset::append(const void* data) {
@@ -92,5 +86,14 @@ h5dset::~h5dset() {
     H5Pclose(prop);
     H5Dclose(dset_id);
 } 
+
+void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,
+                    vector<hsize_t> stride, vector<hsize_t> block) {
+
+    filespace = H5Dget_space(dset_id);
+    status = H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offset.data(),
+            stride.data(), count.data(), block.data());
+    memspace = H5Screate_simple(dspace.drank, count.data(), nullptr);
+}
 
 }

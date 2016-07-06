@@ -20,12 +20,16 @@ public:
     std::unique_ptr<h5attr> create_attribute(std::string name, dtype datatype_, dataspace dspace);
 
     void extend(std::vector<hsize_t> size);
-    void select(std::vector<hsize_t> offset, std::vector<hsize_t> count,
-                std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
     void write(const void* data);
+    void select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count,
+                std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
     void append(const void* data);
 
     ~h5dset();
+
+private:
+    void select(std::vector<hsize_t> offset, std::vector<hsize_t> count,
+                std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
 
 private:
     std::string name;
