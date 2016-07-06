@@ -14,7 +14,7 @@ struct dataspace {
     explicit dataspace(hid_t dspace_id, hid_t prop_id = H5P_DEFAULT);
     dataspace() = default;
 
-    int drank;
+    hsize_t drank;
     std::vector<hsize_t> dims, max_dims, chunk_dims;
     bool extendable = false, unlimited = false;
     bool chunked = false, compressed = false;

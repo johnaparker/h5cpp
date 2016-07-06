@@ -27,9 +27,9 @@ int main() {
     vector<hsize_t> max_dims = {inf, inf};
     vector<hsize_t> chunk_dims = {2,2};
     vector<hsize_t> a_dims = {1};
-    int dx = 2;
-    double dt = 3.2;
-    int new_value = -1;
+    //int dx = 2;
+    //double dt = 3.2;
+    //int new_value = -1;
 
     dataspace ds(dims, max_dims, chunk_dims, true);
     dataspace ds_a(vector<hsize_t>{2,2});

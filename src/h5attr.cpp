@@ -10,6 +10,7 @@ hid_t getDtype(dtype datatype) {
         case dtype::Int: return H5T_NATIVE_INT; break;
         case dtype::Float: return H5T_NATIVE_FLOAT; break;
         case dtype::Double: return H5T_NATIVE_DOUBLE; break;
+        default: throw std::invalid_argument("No corresponding H5datatype to your datatype");
     }
 }
 
