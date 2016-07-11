@@ -36,6 +36,8 @@ public:
     std::unique_ptr<h5attr> open_attribute_by_name(std::string attr_name,
             std::string name);
 
+    bool object_exists(std::string name);
+
     ~h5file();
 
 private:

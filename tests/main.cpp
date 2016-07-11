@@ -32,7 +32,8 @@ int main() {
     //int new_value = -1;
 
     dataspace ds(dims, max_dims, chunk_dims, true);
-    dataspace ds_a(vector<hsize_t>{2,2});
+    //dataspace ds_a(vector<hsize_t>{1});
+    dataspace ds_a(vector<hsize_t>{1});
     h5file f("test.h5", io::w);
 
     auto d1 = f.create_dataset("data", dtype::Int, ds);
@@ -50,8 +51,8 @@ int main() {
     //d1->append(A.data());
     auto g1 = f.create_group("/sub");
     auto d2 = f.create_dataset("/sub/data2", dtype::Int, ds_a);
-    //auto a2 = g1->create_attribute("dx", dtype::Int, ds_a);
+    auto a2 = d2->create_attribute("dx", dtype::Int, ds_a);
     //d1->create_attribute("dx", dtype::Int, ds_a);
-    //a2->write(A.data());
+    a2->write(A.data());
 }
 

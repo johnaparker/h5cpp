@@ -3,3 +3,7 @@ If file closes, make sure unique_ptrs are safe
 read calls
 
 eliminate by_name in open_attribute by string parsing
+
+add documentation
+
+add function qualifiers and consts

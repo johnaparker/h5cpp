@@ -77,9 +77,8 @@ void h5dset::append(const void* data) {
     offset[dspace.drank-1] = new_dims[dspace.drank-1] - 1;
     vector<hsize_t> count(new_dims);
     count[dspace.drank-1] = 1;
-    select(offset,count);
 
-    write(data);
+    select_write(data, offset, count);
 }
 
 unique_ptr<h5attr> h5dset::open_attribute(string name) {

@@ -65,6 +65,17 @@ unique_ptr<h5attr> h5file::open_attribute_by_name(string attr_name, string name)
     return new_attr;
 }
 
+bool h5file::object_exists(string name) {
+    status = H5Eset_auto1(nullptr, nullptr);
+    H5O_info_t object_info;
+    status = H5Oget_info_by_name(file_id, name.c_str(), &object_info, H5P_DEFAULT);
+    if (status >= 0)
+        return true;
+    else
+        return false;
+};
+
+
 h5file::~h5file() {
     H5Fclose(file_id);
 }
