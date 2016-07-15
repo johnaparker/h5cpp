@@ -51,6 +51,16 @@ unique_ptr<h5attr> h5group::open_attribute(string name) {
     return new_attr;
 }
 
+bool h5group::object_exists(string name) {
+    status = H5Eset_auto1(nullptr, nullptr);
+    H5O_info_t object_info;
+    status = H5Oget_info_by_name(group_id, name.c_str(), &object_info, H5P_DEFAULT);
+    if (status >= 0)
+        return true;
+    else
+        return false;
+}
+
 h5group::~h5group() {
     H5Gclose(group_id);
 }

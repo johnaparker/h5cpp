@@ -73,8 +73,7 @@ bool h5file::object_exists(string name) {
         return true;
     else
         return false;
-};
-
+}
 
 h5file::~h5file() {
     H5Fclose(file_id);

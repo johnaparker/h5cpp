@@ -25,6 +25,8 @@ public:
     std::unique_ptr<h5dset> open_dataset(std::string name);
     std::unique_ptr<h5attr> open_attribute(std::string name);
 
+    bool object_exists(std::string name);
+
     ~h5group();
 
 private:
