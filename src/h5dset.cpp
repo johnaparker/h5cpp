@@ -90,6 +90,7 @@ unique_ptr<h5attr> h5dset::open_attribute(string name) {
 h5dset::~h5dset() {
     H5Pclose(prop);
     H5Dclose(dset_id);
+    H5Sclose(dspace_id);
 } 
 
 void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,

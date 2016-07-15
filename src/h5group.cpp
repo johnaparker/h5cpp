@@ -16,6 +16,11 @@ h5group::h5group(hid_t group_id): group_id(group_id) {
     name = string(group_name);
 }
 
+unique_ptr<h5group> h5group::create_group(string name) {
+    auto new_group = make_unique<h5group>(name, group_id);
+    return new_group;
+}
+
 unique_ptr<h5dset> h5group::create_dataset(string name, dtype datatype,
         dataspace dspace) {
     auto new_dset = make_unique<h5dset>(name, group_id, datatype, dspace);
@@ -26,6 +31,12 @@ unique_ptr<h5attr> h5group::create_attribute(string name, dtype datatype,
         dataspace dspace) {
     auto new_attr = make_unique<h5attr>(name, group_id, datatype, dspace);
     return new_attr;
+}
+
+unique_ptr<h5group> h5group::open_group(string name) {
+    hid_t new_group_id = H5Gopen2(group_id, name.c_str(), H5P_DEFAULT); 
+    auto new_group = make_unique<h5group>(new_group_id);
+    return new_group;
 }
 
 unique_ptr<h5dset> h5group::open_dataset(string name) {
