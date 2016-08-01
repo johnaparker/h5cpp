@@ -1,4 +1,5 @@
 #include "h5dset.h"
+#include "hdf5.h"
 #include <iostream>
 
 using namespace std;

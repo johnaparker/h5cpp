@@ -9,3 +9,5 @@ add documentation
 add function qualifiers and consts
 
 add compound datatype support
+
+possibly add create_or_open call
