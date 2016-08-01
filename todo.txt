@@ -7,3 +7,5 @@ eliminate by_name in open_attribute by string parsing
 add documentation
 
 add function qualifiers and consts
+
+add compound datatype support

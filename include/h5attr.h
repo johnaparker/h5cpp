@@ -12,10 +12,12 @@
 namespace h5cpp {
 
 enum class dtype {
-    Int,
-    Float,
-    Double,
-    String
+    Int, UInt,
+    Short, UShort,
+    Long, ULong,
+    LLong, ULLong,
+    Float, Double,
+    String,
 };
 
 hid_t getDtype(dtype datatype);
