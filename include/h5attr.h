@@ -14,7 +14,8 @@ namespace h5cpp {
 enum class dtype {
     Int,
     Float,
-    Double
+    Double,
+    String
 };
 
 hid_t getDtype(dtype datatype);

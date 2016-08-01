@@ -42,6 +42,10 @@ target_link_libraries(foo ${PROJECT_LINK_LIBS} )
 add_executable(basics tests/basics.cpp)
 target_link_libraries(basics ${PROJECT_LINK_LIBS} )
 add_test(BasicTest basics)
+#Chunked Tests
+add_executable(chunk tests/chunked.cpp)
+target_link_libraries(chunk ${PROJECT_LINK_LIBS} )
+add_test(ChunkTest chunk)
 
 #Set the location for library installation
 install(TARGETS h5cpp DESTINATION lib)
