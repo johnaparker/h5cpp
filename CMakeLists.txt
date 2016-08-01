@@ -38,10 +38,10 @@ add_executable(foo tests/main.cpp)
 target_link_libraries(foo ${PROJECT_LINK_LIBS} )
 
 #Tests
-#Simple Test
-#add_executable(simple tests/simple.cpp)
-#target_link_libraries(simple ${PROJECT_LINK_LIBS} )
-#add_test(SimpleRun simple)
+#Basic Tests
+add_executable(basics tests/basics.cpp)
+target_link_libraries(basics ${PROJECT_LINK_LIBS} )
+add_test(BasicTest basics)
 
 #Set the location for library installation
 install(TARGETS h5cpp DESTINATION lib)

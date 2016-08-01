@@ -2,10 +2,11 @@
 #include "boost/multi_array.hpp"
 #include "hdf5.h"
 #include <memory>
-#include "h5file.h"
+#include "h5cpp.h"
 #include <vector>
 
 using namespace std;
+using namespace h5cpp;
 
 int main() {
     //boost array properties
@@ -30,7 +31,7 @@ int main() {
 
 
 
-    h5file f("test.h5", H5F_ACC_TRUNC);
+    h5file f("test.h5", io::w);
     {
         auto g1 = f.create_group("/sub");
         auto g2 = f.create_group("/sub/other");
@@ -40,23 +41,23 @@ int main() {
     auto g2 = f.open_group("/sub/other");
 
     {
-        auto d1 = f.create_dataset("data", H5T_NATIVE_INT, dims);
-    auto d2 = g1->create_dataset("data", H5T_NATIVE_INT, dims);
+        auto d1 = f.create_dataset("data", dtype::Int, dataspace(dims));
+        auto d2 = g1->create_dataset("data", dtype::Int, dataspace(dims));
     }
-    auto d3 = g2->create_dataset("data", H5T_NATIVE_INT, dims);
+    auto d3 = g2->create_dataset("data", dtype::Int, dataspace(dims));
     
     auto d1 = f.open_dataset("data");
-    auto d2 = f.open_dataset("sub/data");
+    auto d2 = g1->open_dataset("data");
     d1->write(A.data());
     d2->write(A.data());
     d3->write(A.data());
 
     {
-    auto a1 = f.create_attribute("dx", H5T_NATIVE_INT,  a_dims);
-    auto a2 = g1->create_attribute("dx", H5T_NATIVE_INT, a_dims);
+    auto a1 = f.create_attribute("dx", dtype::Int,  dataspace(a_dims));
+    auto a2 = g1->create_attribute("dx", dtype::Int, dataspace(a_dims));
     }
-    auto a3 = g2->create_attribute("dt", H5T_NATIVE_DOUBLE, a_dims);
-    auto a4 = d2->create_attribute("new", H5T_NATIVE_INT, a_dims);
+    auto a3 = g2->create_attribute("dt", dtype::Double, dataspace(a_dims));
+    auto a4 = d2->create_attribute("new", dtype::Int, dataspace(a_dims));
 
     auto a1 = f.open_attribute("dx");
     auto a2 = f.open_attribute_by_name("dx", "/sub");

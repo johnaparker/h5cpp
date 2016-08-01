@@ -27,7 +27,7 @@ dataspace::dataspace(hid_t dspace_id, hid_t prop_id) {
     dims.assign(p_dims.get(), p_dims.get() + drank);
     max_dims.assign(p_max_dims.get(), p_max_dims.get() + drank);
 
-    if (prop_id != H5P_DEFAULT) {
+    if (prop_id != H5P_DEFAULT && H5Pget_layout(prop_id) == H5D_CHUNKED) {
         auto p_chunk_dims = make_unique<hsize_t[]>(drank);
         H5Pget_chunk(prop_id, drank, p_chunk_dims.get());
         chunk_dims.assign(p_chunk_dims.get(), p_chunk_dims.get() + drank);
