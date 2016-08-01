@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 elseif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -g -Og")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -g -Og")
 endif()
 
 #Dependencies
@@ -46,6 +46,10 @@ add_test(BasicTest basics)
 add_executable(chunk tests/chunked.cpp)
 target_link_libraries(chunk ${PROJECT_LINK_LIBS} )
 add_test(ChunkTest chunk)
+#String Tests
+add_executable(string tests/string.cpp)
+target_link_libraries(string ${PROJECT_LINK_LIBS} )
+add_test(StringTest string)
 
 #Set the location for library installation
 install(TARGETS h5cpp DESTINATION lib)

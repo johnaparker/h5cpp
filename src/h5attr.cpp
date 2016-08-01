@@ -10,7 +10,11 @@ hid_t getDtype(dtype datatype) {
         case dtype::Int: return H5T_NATIVE_INT; break;
         case dtype::Float: return H5T_NATIVE_FLOAT; break;
         case dtype::Double: return H5T_NATIVE_DOUBLE; break;
-        case dtype::String: return H5T_UNIX_D64LE; break;
+        case dtype::String: {
+            hid_t filetype = H5Tcopy(H5T_C_S1);
+            H5Tset_size(filetype, H5T_VARIABLE);
+            return filetype; break;
+        }
         default: throw std::invalid_argument("No corresponding H5datatype to your datatype");
     }
 }
