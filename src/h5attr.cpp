@@ -1,29 +1,10 @@
 #include "h5attr.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 namespace h5cpp {
-
-hid_t getDtype(dtype datatype) {
-    switch(datatype) {
-        case dtype::Int: return H5T_NATIVE_INT; break;
-        case dtype::UInt: return H5T_NATIVE_UINT; break;
-        case dtype::Short: return H5T_NATIVE_SHORT; break;
-        case dtype::UShort: return H5T_NATIVE_USHORT; break;
-        case dtype::Long: return H5T_NATIVE_LONG; break;
-        case dtype::ULong: return H5T_NATIVE_ULONG; break;
-        case dtype::LLong: return H5T_NATIVE_LLONG; break;
-        case dtype::ULLong: return H5T_NATIVE_ULLONG; break;
-        case dtype::Float: return H5T_NATIVE_FLOAT; break;
-        case dtype::Double: return H5T_NATIVE_DOUBLE; break;
-
-        case dtype::String: 
-            return H5Tcreate(H5T_STRING, H5T_VARIABLE); break;
-
-        default: throw std::invalid_argument("No corresponding H5datatype to your datatype");
-    }
-}
 
 h5attr::h5attr(string name, hid_t where, dtype datatype_, dataspace dspace):
             name(name), dspace(dspace) {

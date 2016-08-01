@@ -2,6 +2,7 @@
 #define h5attr_GUARD_H
 
 #include "hdf5.h"
+#include "h5type.h"
 #include <memory>
 #include <string>
 #include <map>
@@ -10,17 +11,6 @@
 #include "h5dspace.h"
 
 namespace h5cpp {
-
-enum class dtype {
-    Int, UInt,
-    Short, UShort,
-    Long, ULong,
-    LLong, ULLong,
-    Float, Double,
-    String,
-};
-
-hid_t getDtype(dtype datatype);
 
 class h5attr {
 public:
