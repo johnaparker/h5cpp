@@ -16,4 +16,4 @@
 
 [ ] Find common code between group & file...move it to base class or other functions
 
-[ ] Rename dataspace to dspace
+[x] Rename dataspace to dspace

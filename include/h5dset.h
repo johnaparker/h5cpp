@@ -15,6 +15,7 @@ namespace h5cpp {
 class h5dset {
 public:
     h5dset(std::string name, hid_t where, dtype datatype_, dspace dataspace);
+    h5dset(std::string name, hid_t where, hid_t datatype_, dspace dataspace);
     explicit h5dset(hid_t group_id);
 
     h5attr create_attribute(std::string name, dtype datatype_, dspace dataspace);

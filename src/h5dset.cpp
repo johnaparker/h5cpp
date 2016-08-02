@@ -6,10 +6,9 @@ using namespace std;
 
 namespace h5cpp {
 
-h5dset::h5dset(string name, hid_t where, dtype datatype_, dspace dataspace):
-      name(name), dataspace(dataspace) {
+h5dset::h5dset(string name, hid_t where, hid_t datatype_, dspace dataspace):
+      name(name), dataspace(dataspace), datatype(datatype_) {
 
-    datatype = getDtype(datatype_);
     memspace = H5P_DEFAULT;
     prop = H5P_DEFAULT;
     if (dataspace.chunked || dataspace.extendable) {
@@ -26,6 +25,9 @@ h5dset::h5dset(string name, hid_t where, dtype datatype_, dspace dataspace):
                     dspace_id, H5P_DEFAULT, prop,
                     H5P_DEFAULT);
 }
+
+h5dset::h5dset(string name, hid_t where, dtype datatype_, dspace dataspace):
+      h5dset(name, where, getDtype(datatype_), dataspace) {}
 
 h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
 

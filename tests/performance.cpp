@@ -11,7 +11,7 @@ using namespace h5cpp;
 
 int main() {
     //boost array properties
-    const int iterations = 1e5;
+    const int iterations = 3e4;
     
     //complex array
     hsize_t n = 100;

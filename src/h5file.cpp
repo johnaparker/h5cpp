@@ -34,6 +34,12 @@ h5dset h5file::create_dataset(string name, dtype datatype,
     return new_dset;
 }
 
+h5dset h5file::create_dataset(string name, hid_t datatype, 
+        dspace dataspace) {
+    auto new_dset = h5dset(name, file_id, datatype, dataspace);
+    return new_dset;
+}
+
 h5attr h5file::create_attribute(string name, dtype datatype, dspace dataspace) {
     auto new_attr = h5attr(name, file_id, datatype, dataspace);
     return new_attr;
