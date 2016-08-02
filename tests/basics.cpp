@@ -60,7 +60,7 @@ int main() {
     auto a4 = d2->create_attribute("new", dtype::Int, dataspace(a_dims));
 
     auto a1 = f.open_attribute("dx");
-    auto a2 = f.open_attribute_by_name("dx", "/sub");
+    auto a2 = f.open_attribute("dx", "/sub");
 
     a1->write(&dx);
     a2->write(&dx);

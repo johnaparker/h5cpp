@@ -50,6 +50,10 @@ add_test(ChunkTest chunk)
 add_executable(string tests/string.cpp)
 target_link_libraries(string ${PROJECT_LINK_LIBS} )
 add_test(StringTest string)
+#Complex Output Tests
+add_executable(complex tests/complex.cpp)
+target_link_libraries(complex ${PROJECT_LINK_LIBS} )
+add_test(ComplexTest complex)
 
 #Set the location for library installation
 install(TARGETS h5cpp DESTINATION lib)

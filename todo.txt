@@ -1,13 +1,15 @@
-If file closes, make sure unique_ptrs are safe
+[ ] If file closes, make sure unique_ptrs are safe
 
-read calls
+[ ] read calls
 
-eliminate by_name in open_attribute by string parsing
+[ ] eliminate by_name in open_attribute by string parsing
 
-add documentation
+[ ] add documentation
 
-add function qualifiers and consts
+[ ] add function qualifiers and consts
 
-add compound datatype support
+[ ] add compound datatype support
 
-possibly add create_or_open call
+[ ] possibly add create_or_open call
+
+[ ] possibly return ojects directly rather than smart pointers

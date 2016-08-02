@@ -32,9 +32,7 @@ public:
 
     std::unique_ptr<h5group> open_group(std::string name);
     std::unique_ptr<h5dset> open_dataset(std::string name);
-    std::unique_ptr<h5attr> open_attribute(std::string name);
-    std::unique_ptr<h5attr> open_attribute_by_name(std::string attr_name,
-            std::string name);
+    std::unique_ptr<h5attr> open_attribute(std::string name, std::string base="/");
 
     bool object_exists(std::string name);
 
