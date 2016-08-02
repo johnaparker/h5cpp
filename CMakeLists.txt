@@ -41,19 +41,23 @@ target_link_libraries(foo ${PROJECT_LINK_LIBS} )
 #Basic Tests
 add_executable(basics tests/basics.cpp)
 target_link_libraries(basics ${PROJECT_LINK_LIBS} )
-add_test(BasicTest basics)
+add_test(Basics basics)
 #Chunked Tests
 add_executable(chunk tests/chunked.cpp)
 target_link_libraries(chunk ${PROJECT_LINK_LIBS} )
-add_test(ChunkTest chunk)
+add_test(Chunks chunk)
 #String Tests
 add_executable(string tests/string.cpp)
 target_link_libraries(string ${PROJECT_LINK_LIBS} )
-add_test(StringTest string)
+add_test(Strings string)
 #Complex Output Tests
 add_executable(complex tests/complex.cpp)
 target_link_libraries(complex ${PROJECT_LINK_LIBS} )
-add_test(ComplexTest complex)
+add_test(Complex_Numbers complex)
+#Performance Test
+add_executable(performance tests/performance.cpp)
+target_link_libraries(performance ${PROJECT_LINK_LIBS} )
+add_test(Performance_Check performance)
 
 #Set the location for library installation
 install(TARGETS h5cpp DESTINATION lib)

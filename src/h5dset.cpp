@@ -92,7 +92,6 @@ h5dset::~h5dset() {
     H5Pclose(prop);
     H5Dclose(dset_id);
     H5Sclose(dspace_id);
-    cout << 1 << endl;
 } 
 
 void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,
