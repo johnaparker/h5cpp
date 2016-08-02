@@ -2,7 +2,7 @@
 
 [ ] read calls
 
-[ ] eliminate by_name in open_attribute by string parsing
+[x] eliminate by_name in open_attribute by string parsing
 
 [ ] add documentation
 

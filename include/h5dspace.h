@@ -8,11 +8,11 @@ namespace h5cpp {
 
 extern hsize_t inf;
 
-struct dataspace {
-    explicit dataspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},
+struct dspace {
+    explicit dspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},
             std::vector<hsize_t> chunk_dims={}, bool compressed=false);
-    explicit dataspace(hid_t dspace_id, hid_t prop_id = H5P_DEFAULT);
-    dataspace() = default;
+    explicit dspace(hid_t dspace_id, hid_t prop_id = H5P_DEFAULT);
+    dspace() = default;
 
     hsize_t drank;
     std::vector<hsize_t> dims, max_dims, chunk_dims;

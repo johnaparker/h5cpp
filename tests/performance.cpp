@@ -31,7 +31,7 @@ int main() {
         vector<hsize_t> max_dims = {n,2, inf};
         vector<hsize_t> chunk_dims = {n,2, 1};
         //write
-        auto dataset = group.create_dataset("data", dtype::Double, dataspace(dims, max_dims, chunk_dims));
+        auto dataset = group.create_dataset("data", dtype::Double, dspace(dims, max_dims, chunk_dims));
         dataset.write(values.data());
     }
 

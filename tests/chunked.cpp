@@ -30,8 +30,8 @@ int main() {
     vector<hsize_t> chunk_dims = {2,2};
     vector<hsize_t> a_dims = {1};
 
-    dataspace ds(dims, max_dims, chunk_dims, true);
-    dataspace ds_a(vector<hsize_t>{1});
+    dspace ds(dims, max_dims, chunk_dims, true);
+    dspace ds_a(vector<hsize_t>{1});
 
     h5file f("test.h5", io::w);
 

@@ -31,9 +31,9 @@ int main() {
     //double dt = 3.2;
     //int new_value = -1;
 
-    dataspace ds(dims, max_dims, chunk_dims, true);
-    //dataspace ds_a(vector<hsize_t>{1});
-    dataspace ds_a(vector<hsize_t>{1});
+    dspace ds(dims, max_dims, chunk_dims, true);
+    //dspace ds_a(vector<hsize_t>{1});
+    dspace ds_a(vector<hsize_t>{1});
     h5file f("test.h5", io::w);
 
     auto d1 = f.create_dataset("data", dtype::Int, ds);

@@ -28,7 +28,7 @@ int main() {
     h5file f("test.h5", io::w);
 
     //write
-    auto dataset = f.create_dataset("data", dtype::Double, dataspace(dims));
+    auto dataset = f.create_dataset("data", dtype::Double, dspace(dims));
     dataset.write(values.data());
 
 }

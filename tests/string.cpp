@@ -17,7 +17,7 @@ int main() {
          4,5,6,
          7,8,9;
 
-    dataspace ds(dims);
+    dspace ds(dims);
 
     h5file f("test.h5", io::w);
 
@@ -27,7 +27,7 @@ int main() {
 
     // string message
     string message("hello there, how are you?");
-    dataspace ds_a(vector<hsize_t>{1});
+    dspace ds_a(vector<hsize_t>{1});
 
     // write message
     auto a1 = f.create_attribute("message", dtype::String,  ds_a);
@@ -36,7 +36,7 @@ int main() {
     // write seres of messages
     const int num = 4;
     const char* series[num] = {"hi","bye","coffee","tea"};
-    dataspace ds_a2(vector<hsize_t>{num});
+    dspace ds_a2(vector<hsize_t>{num});
     auto a2 = f.create_attribute("series", dtype::String,  ds_a2);
     a2.write(series);
 }

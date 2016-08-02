@@ -29,13 +29,13 @@ h5group h5file::create_group(string name) {
 }
 
 h5dset h5file::create_dataset(string name, dtype datatype, 
-        dataspace dspace) {
-    auto new_dset = h5dset(name, file_id, datatype, dspace);
+        dspace dataspace) {
+    auto new_dset = h5dset(name, file_id, datatype, dataspace);
     return new_dset;
 }
 
-h5attr h5file::create_attribute(string name, dtype datatype, dataspace dspace) {
-    auto new_attr = h5attr(name, file_id, datatype, dspace);
+h5attr h5file::create_attribute(string name, dtype datatype, dspace dataspace) {
+    auto new_attr = h5attr(name, file_id, datatype, dataspace);
     return new_attr;
 }
 
@@ -67,11 +67,11 @@ h5group h5file::create_or_open_group(string name) {
         return create_group(name);
 }
 
-h5dset h5file::create_or_open_dataset(string name, dtype datatype, dataspace dspace) {
+h5dset h5file::create_or_open_dataset(string name, dtype datatype, dspace dataspace) {
     if (object_exists(name))
         return open_dataset(name);
     else
-        return create_dataset(name, datatype, dspace);
+        return create_dataset(name, datatype, dataspace);
 }
 
 bool h5file::object_exists(string name) {

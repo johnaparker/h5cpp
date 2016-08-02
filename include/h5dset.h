@@ -14,10 +14,10 @@ namespace h5cpp {
 
 class h5dset {
 public:
-    h5dset(std::string name, hid_t where, dtype datatype_, dataspace dspace);
+    h5dset(std::string name, hid_t where, dtype datatype_, dspace dataspace);
     explicit h5dset(hid_t group_id);
 
-    h5attr create_attribute(std::string name, dtype datatype_, dataspace dspace);
+    h5attr create_attribute(std::string name, dtype datatype_, dspace dataspace);
 
     void extend(std::vector<hsize_t> size);
     void write(const void* data);
@@ -38,7 +38,7 @@ private:
 
     hid_t dset_id;
     hid_t dspace_id, filespace, memspace, prop;
-    dataspace dspace;
+    dspace dataspace;
     hid_t datatype;
     herr_t status;
 };
