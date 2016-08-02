@@ -17,7 +17,7 @@ public:
     h5dset(std::string name, hid_t where, dtype datatype_, dataspace dspace);
     explicit h5dset(hid_t group_id);
 
-    std::unique_ptr<h5attr> create_attribute(std::string name, dtype datatype_, dataspace dspace);
+    h5attr create_attribute(std::string name, dtype datatype_, dataspace dspace);
 
     void extend(std::vector<hsize_t> size);
     void write(const void* data);
@@ -25,7 +25,7 @@ public:
                 std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
     void append(const void* data);
 
-    std::unique_ptr<h5attr> open_attribute(std::string name);
+    h5attr open_attribute(std::string name);
 
     ~h5dset();
 

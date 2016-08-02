@@ -23,51 +23,51 @@ h5file::h5file(string name, io flag): filename(name) {
     }
 }
 
-unique_ptr<h5group> h5file::create_group(string name) {
-    auto new_group = make_unique<h5group>(name, file_id);
+h5group h5file::create_group(string name) {
+    auto new_group = h5group(name, file_id);
     return new_group;
 }
 
-unique_ptr<h5dset> h5file::create_dataset(string name, dtype datatype, 
+h5dset h5file::create_dataset(string name, dtype datatype, 
         dataspace dspace) {
-    auto new_dset = make_unique<h5dset>(name, file_id, datatype, dspace);
+    auto new_dset = h5dset(name, file_id, datatype, dspace);
     return new_dset;
 }
 
-unique_ptr<h5attr> h5file::create_attribute(string name, dtype datatype, dataspace dspace) {
-    auto new_attr = make_unique<h5attr>(name, file_id, datatype, dspace);
+h5attr h5file::create_attribute(string name, dtype datatype, dataspace dspace) {
+    auto new_attr = h5attr(name, file_id, datatype, dspace);
     return new_attr;
 }
 
 
-unique_ptr<h5group> h5file::open_group(string name) {
+h5group h5file::open_group(string name) {
     hid_t group_id = H5Gopen2(file_id, name.c_str(), H5P_DEFAULT); 
-    auto new_group = make_unique<h5group>(group_id);
+    auto new_group = h5group(group_id);
     return new_group;
 }
 
-unique_ptr<h5dset> h5file::open_dataset(string name) {
+h5dset h5file::open_dataset(string name) {
     hid_t dset_id = H5Dopen2(file_id, name.c_str(), H5P_DEFAULT); 
-    auto new_dset = make_unique<h5dset>(dset_id);
+    auto new_dset = h5dset(dset_id);
     return new_dset;
 }
 
-unique_ptr<h5attr> h5file::open_attribute(string name, string base) {
+h5attr h5file::open_attribute(string name, string base) {
     hid_t attr_id = H5Aopen_by_name(file_id, base.c_str(),
                       name.c_str(), H5P_DEFAULT, H5P_DEFAULT); 
-    auto new_attr = make_unique<h5attr>(attr_id);
+    auto new_attr = h5attr(attr_id);
     return new_attr;
 }
 
 
-unique_ptr<h5group> h5file::create_or_open_group(string name) {
+h5group h5file::create_or_open_group(string name) {
     if (object_exists(name))
         return open_group(name);
     else
         return create_group(name);
 }
 
-unique_ptr<h5dset> h5file::create_or_open_dataset(string name, dtype datatype, dataspace dspace) {
+h5dset h5file::create_or_open_dataset(string name, dtype datatype, dataspace dspace) {
     if (object_exists(name))
         return open_dataset(name);
     else

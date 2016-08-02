@@ -42,29 +42,29 @@ int main() {
 
     {
         auto d1 = f.create_dataset("data", dtype::Int, dataspace(dims));
-        auto d2 = g1->create_dataset("data", dtype::Int, dataspace(dims));
+        auto d2 = g1.create_dataset("data", dtype::Int, dataspace(dims));
     }
-    auto d3 = g2->create_dataset("data", dtype::Int, dataspace(dims));
+    auto d3 = g2.create_dataset("data", dtype::Int, dataspace(dims));
     
     auto d1 = f.open_dataset("data");
-    auto d2 = g1->open_dataset("data");
-    d1->write(A.data());
-    d2->write(A.data());
-    d3->write(A.data());
+    auto d2 = g1.open_dataset("data");
+    d1.write(A.data());
+    d2.write(A.data());
+    d3.write(A.data());
 
     {
     auto a1 = f.create_attribute("dx", dtype::Int,  dataspace(a_dims));
-    auto a2 = g1->create_attribute("dx", dtype::Int, dataspace(a_dims));
+    auto a2 = g1.create_attribute("dx", dtype::Int, dataspace(a_dims));
     }
-    auto a3 = g2->create_attribute("dt", dtype::Double, dataspace(a_dims));
-    auto a4 = d2->create_attribute("new", dtype::Int, dataspace(a_dims));
+    auto a3 = g2.create_attribute("dt", dtype::Double, dataspace(a_dims));
+    auto a4 = d2.create_attribute("new", dtype::Int, dataspace(a_dims));
 
     auto a1 = f.open_attribute("dx");
     auto a2 = f.open_attribute("dx", "/sub");
 
-    a1->write(&dx);
-    a2->write(&dx);
-    a3->write(&dt);
-    a4->write(&new_value);
+    a1.write(&dx);
+    a2.write(&dx);
+    a3.write(&dt);
+    a4.write(&new_value);
 }
 
