@@ -51,6 +51,21 @@ unique_ptr<h5attr> h5group::open_attribute(string name) {
     return new_attr;
 }
 
+
+unique_ptr<h5group> h5group::create_or_open_group(string name) {
+    if (object_exists(name))
+        return open_group(name);
+    else
+        return create_group(name);
+}
+
+unique_ptr<h5dset> h5group::create_or_open_dataset(string name, dtype datatype, dataspace dspace) {
+    if (object_exists(name))
+        return open_dataset(name);
+    else
+        return create_dataset(name, datatype, dspace);
+}
+
 bool h5group::object_exists(string name) {
     status = H5Eset_auto1(nullptr, nullptr);
     H5O_info_t object_info;

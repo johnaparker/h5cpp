@@ -10,6 +10,8 @@
 
 [ ] add compound datatype support
 
-[ ] possibly add create_or_open call
+[x] possibly add create_or_open call
 
 [ ] possibly return ojects directly rather than smart pointers
+
+[ ] Find common code between group & file...move it to base class or other functions
