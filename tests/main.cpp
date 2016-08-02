@@ -38,21 +38,21 @@ int main() {
 
     auto d1 = f.create_dataset("data", dtype::Int, ds);
     //auto d1 = f.open_dataset("data");
-    d1->extend({n, 2*n});
-    d1->select_write(A.data(), {0,3}, {3,3});
+    d1.extend({n, 2*n});
+    d1.select_write(A.data(), {0,3}, {3,3});
     {
-    auto a1 = d1->create_attribute("dx", dtype::Int,  ds_a);
+    auto a1 = d1.create_attribute("dx", dtype::Int,  ds_a);
     }
 
-    auto a1 = d1->open_attribute("dx");
-    a1->write(A.data());
-    //d1->select({0,3},{3,3});
-    //d1->write(A.data());
-    //d1->append(A.data());
+    auto a1 = d1.open_attribute("dx");
+    a1.write(A.data());
+    //d1.select({0,3},{3,3});
+    //d1.write(A.data());
+    //d1.append(A.data());
     auto g1 = f.create_group("/sub");
     auto d2 = f.create_dataset("/sub/data2", dtype::Int, ds_a);
-    auto a2 = d2->create_attribute("dx", dtype::Int, ds_a);
-    //d1->create_attribute("dx", dtype::Int, ds_a);
-    a2->write(A.data());
+    auto a2 = d2.create_attribute("dx", dtype::Int, ds_a);
+    //d1.create_attribute("dx", dtype::Int, ds_a);
+    a2.write(A.data());
 }
 

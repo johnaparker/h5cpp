@@ -36,10 +36,10 @@ int main() {
     h5file f("test.h5", io::w);
 
     auto d1 = f.create_dataset("data", dtype::Int, ds);
-    d1->extend({n, 2*n});
-    d1->select_write(A.data(), {0,3}, {3,3});
+    d1.extend({n, 2*n});
+    d1.select_write(A.data(), {0,3}, {3,3});
 
-    auto a1 = d1->create_attribute("dx", dtype::Int,  ds_a);
-    a1->write(A.data());
+    auto a1 = d1.create_attribute("dx", dtype::Int,  ds_a);
+    a1.write(A.data());
 }
 

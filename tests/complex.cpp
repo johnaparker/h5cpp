@@ -29,7 +29,7 @@ int main() {
 
     //write
     auto dataset = f.create_dataset("data", dtype::Double, dataspace(dims));
-    dataset->write(values.data());
+    dataset.write(values.data());
 
 }
 

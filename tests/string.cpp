@@ -23,7 +23,7 @@ int main() {
 
     // write matrix
     auto d1 = f.create_dataset("data", dtype::Int, ds);
-    d1->write(A.data());
+    d1.write(A.data());
 
     // string message
     string message("hello there, how are you?");
@@ -31,13 +31,13 @@ int main() {
 
     // write message
     auto a1 = f.create_attribute("message", dtype::String,  ds_a);
-    a1->write(&message);
+    a1.write(&message);
 
     // write seres of messages
     const int num = 4;
     const char* series[num] = {"hi","bye","coffee","tea"};
     dataspace ds_a2(vector<hsize_t>{num});
     auto a2 = f.create_attribute("series", dtype::String,  ds_a2);
-    a2->write(series);
+    a2.write(series);
 }
 
