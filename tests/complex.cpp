@@ -61,22 +61,20 @@ int main() {
     //complexType.insert("real", dtype::Double);
     //complexType.insert("imag", dtype::Double);
 
-    //dtypeCompound complexType (sizeof(complex<double>));
-    //complexType.insert("real", dtype::Double);
-    //complexType.insert("imag", dtype::Double);
+    dtypeCompound complexType (sizeof(complex<double>));
+    complexType.insert("real", dtype::Double);
+    complexType.insert("imag", dtype::Double);
 
-    //dims = {n};
-    //auto my_dataset = f.create_dataset("my_data", complexType.memType(), dspace(dims));
-    //my_dataset.write(my_values.data());
+    dims = {n};
+    auto my_dataset = f.create_dataset("my_data", complexType.memType(), dspace(dims));
+    my_dataset.write(my_values.data());
 
 
 
-    vector<hsize_t> dims_ = {2};
-    hid_t array_type = dtypeArray(dtype::Double, dims_);
+    dims = {2};
     dtypeCompound crazyType (sizeof(crazy));
     crazyType.insert("one" , dtype::Double);
-    //crazyType.insert("data" , dtypeArray(dtype::Double, {2}));
-    crazyType.insert("data" , array_type);
+    crazyType.insert("data" , dtypeArray(dtype::Double, dims));
     crazyType.insert("two" , dtype::String);
     crazyType.insert("three" , dtype::Int);
 
