@@ -28,58 +28,6 @@ struct crazy {
     int two;
 };
 
-class compound_dtype {
-public:
-    compound_dtype(size_t memsize) {
-        memtype = H5Tcreate (H5T_COMPOUND, memsize);
-        memDisplace = 0;
-        fileSize = 0;
-    }
-
-    void insert(string name, dtype datatype) {
-        hid_t h5dtype = getDtype(datatype);
-        if (datatype == dtype::String) {
-            memDisplace += sizeof(char*);
-            memDisplace -= H5Tget_size(h5dtype);
-        }
-        insert(name, h5dtype);
-    }
-
-    void insert(string name, hid_t h5dtype) {
-        status = H5Tinsert (memtype, name.c_str(),
-                    memDisplace, h5dtype);
-        memDisplace += H5Tget_size(h5dtype);
-
-        fileDisplacements.push_back(fileSize);
-        fileSize += H5Tget_size(h5dtype);
-        names.push_back(name);
-        types.push_back(h5dtype);
-    }
-
-    hid_t memType() {
-        return memtype;
-    }
-
-    hid_t fileType() {
-
-        hid_t filetype = H5Tcreate (H5T_COMPOUND, fileSize);
-        for (size_t i = 0; i != names.size(); i++) {
-            status = H5Tinsert (filetype, names[i].c_str(), fileDisplacements[i], types[i]);
-        }
-
-        return filetype;
-    }
-
-private:
-    hid_t memtype;
-    herr_t status;
-    size_t memDisplace;
-    size_t fileSize;
-
-    vector<string> names;
-    vector<hid_t> types;
-    vector<hsize_t> fileDisplacements;
-};
 
 
 int main() {
@@ -113,22 +61,21 @@ int main() {
     //complexType.insert("real", dtype::Double);
     //complexType.insert("imag", dtype::Double);
 
-    compound_dtype complexType (sizeof(complex<double>));
-    complexType.insert("real", dtype::Double);
-    complexType.insert("imag", dtype::Double);
+    //dtypeCompound complexType (sizeof(complex<double>));
+    //complexType.insert("real", dtype::Double);
+    //complexType.insert("imag", dtype::Double);
+
+    //dims = {n};
+    //auto my_dataset = f.create_dataset("my_data", complexType.memType(), dspace(dims));
+    //my_dataset.write(my_values.data());
 
 
-    dims = {n};
-    auto my_dataset = f.create_dataset("my_data", complexType.memType(), dspace(dims));
-    my_dataset.write(my_values.data());
 
-
-    dims = {2};
-    hsize_t dims_[1] = {2};
-    hid_t array_type = H5Tarray_create(H5T_NATIVE_DOUBLE, 1, dims_);
-
-    compound_dtype crazyType (sizeof(crazy));
+    vector<hsize_t> dims_ = {2};
+    hid_t array_type = dtypeArray(dtype::Double, dims_);
+    dtypeCompound crazyType (sizeof(crazy));
     crazyType.insert("one" , dtype::Double);
+    //crazyType.insert("data" , dtypeArray(dtype::Double, {2}));
     crazyType.insert("data" , array_type);
     crazyType.insert("two" , dtype::String);
     crazyType.insert("three" , dtype::Int);

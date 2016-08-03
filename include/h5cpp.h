@@ -6,5 +6,6 @@
 #include "h5cpp/h5dset.h"
 #include "h5cpp/h5attr.h"
 #include "h5cpp/h5dspace.h"
+#include "h5cpp/h5type.h"
 
 #endif
