@@ -40,6 +40,12 @@ h5dset h5file::create_dataset(string name, hid_t datatype,
     return new_dset;
 }
 
+h5dset h5file::create_dataset(string name, dtypeCompound datatype, dspace dataspace) {
+    auto new_dset = h5dset(name, file_id, datatype.fileType(), dataspace);
+    new_dset.datatype = datatype.memType();
+    return new_dset;
+}
+
 h5attr h5file::create_attribute(string name, dtype datatype, dspace dataspace) {
     auto new_attr = h5attr(name, file_id, datatype, dataspace);
     return new_attr;

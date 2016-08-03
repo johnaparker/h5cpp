@@ -27,6 +27,12 @@ h5dset h5group::create_dataset(string name, dtype datatype,
     return new_dset;
 }
 
+h5dset h5group::create_dataset(string name, dtypeCompound datatype, dspace dataspace) {
+    auto new_dset = h5dset(name, group_id, datatype.fileType(), dataspace);
+    new_dset.datatype = datatype.memType();
+    return new_dset;
+}
+
 h5attr h5group::create_attribute(string name, dtype datatype,
         dspace dataspace) {
     auto new_attr = h5attr(name, group_id, datatype, dataspace);
