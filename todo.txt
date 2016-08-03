@@ -9,6 +9,9 @@
 [ ] add function qualifiers and consts
 
 [ ] add compound datatype support
+    [ ] string parts
+    [ ] array parts
+    [ ] abstract into own file
 
 [x] possibly add create_or_open call
 
@@ -17,3 +20,5 @@
 [ ] Find common code between group & file...move it to base class or other functions
 
 [x] Rename dataspace to dspace
+
+[ ] When reassigning a dataset to a new dataset, program crashes...

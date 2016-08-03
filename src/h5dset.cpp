@@ -62,6 +62,11 @@ void h5dset::write(const void* data) {
            H5P_DEFAULT, data);
 }
 
+void h5dset::write(const void* data, hid_t h5datatype) {
+    status = H5Dwrite(dset_id, h5datatype, H5S_ALL, H5S_ALL,
+           H5P_DEFAULT, data);
+}
+
 void h5dset::select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count, std::vector<hsize_t> stride, std::vector<hsize_t> block) {
     
     select(offset, count, stride, block);

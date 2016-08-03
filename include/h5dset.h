@@ -22,6 +22,7 @@ public:
 
     void extend(std::vector<hsize_t> size);
     void write(const void* data);
+    void write(const void* data, hid_t h5datatype);
     void select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count,
                 std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
     void append(const void* data);
