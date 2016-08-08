@@ -18,6 +18,7 @@ namespace h5cpp {
 enum class io {
     w,       ///<  over-write
     wn,      ///<  write new; fail if file already exists
+    wp,      ///<  create if non-existant; otherwise open
     r,       ///<  read only
     rw       ///<  read-write
 };
