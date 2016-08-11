@@ -16,4 +16,8 @@
 
 [ ] Find common code between group & file...move it to base class or other functions
 
-[ ] Rename dataspace to dspace
+[x] Rename dataspace to dspace
+
+[ ] Improve error messages
+    [ ] Program should fail if unable to create or open a group, dset, etc.
+    [ ] wp file mode  --> spits out errors if file exists, but shouldn't

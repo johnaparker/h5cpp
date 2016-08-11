@@ -25,6 +25,8 @@ public:
                 std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
     void append(const void* data);
 
+    void read(void* dest);
+
     h5attr open_attribute(std::string name);
 
     ~h5dset();

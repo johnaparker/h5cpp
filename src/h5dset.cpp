@@ -82,6 +82,12 @@ void h5dset::append(const void* data) {
     select_write(data, offset, count);
 }
 
+void h5dset::read(void* dest) {
+    status = H5Dread(dset_id, datatype, H5S_ALL, H5S_ALL,
+           H5P_DEFAULT, dest);
+}
+
+
 h5attr h5dset::open_attribute(string name) {
     hid_t attr_id = H5Aopen(dset_id, name.c_str(), H5P_DEFAULT); 
     auto new_attr = h5attr(attr_id);
