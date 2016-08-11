@@ -87,6 +87,14 @@ void h5dset::read(void* dest) {
            H5P_DEFAULT, dest);
 }
 
+void h5dset::select_read(void* dest, std::vector<hsize_t> offset, std::vector<hsize_t> count, std::vector<hsize_t> stride, std::vector<hsize_t> block) {
+    
+    select(offset, count, stride, block);
+    status = H5Dread(dset_id, datatype, memspace, filespace, 
+                 H5P_DEFAULT, dest);
+    H5Sclose(memspace);
+    H5Sclose(filespace);
+}
 
 h5attr h5dset::open_attribute(string name) {
     hid_t attr_id = H5Aopen(dset_id, name.c_str(), H5P_DEFAULT); 

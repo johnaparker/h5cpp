@@ -26,6 +26,8 @@ public:
     void append(const void* data);
 
     void read(void* dest);
+    void select_read(void* dest, std::vector<hsize_t> offset, std::vector<hsize_t> count,
+                std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
 
     h5attr open_attribute(std::string name);
 
