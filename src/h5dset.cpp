@@ -94,6 +94,10 @@ h5attr h5dset::open_attribute(string name) {
     return new_attr;
 }
 
+const dspace h5dset::get_dspace() {
+    return dataspace;
+};
+
 h5dset::~h5dset() {
     H5Pclose(prop);
     H5Dclose(dset_id);

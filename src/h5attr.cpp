@@ -31,6 +31,14 @@ void h5attr::write(const void* data) {
     status = H5Awrite(attr_id, datatype, data);
 }
 
+void h5attr::read(void* dest) {
+    status = H5Aread(attr_id, datatype, dest);
+}
+
+
+const dspace h5attr::get_dspace() {
+    return dataspace;
+};
 
 h5attr::~h5attr() {
     H5Aclose(attr_id);

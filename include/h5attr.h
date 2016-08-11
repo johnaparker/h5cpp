@@ -19,6 +19,10 @@ public:
 
     void write(const void* data);
 
+    void read(void* dest);
+
+    const dspace get_dspace();
+
     ~h5attr();
 
 private:

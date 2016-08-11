@@ -29,6 +29,8 @@ public:
 
     h5attr open_attribute(std::string name);
 
+    const dspace get_dspace();
+
     ~h5dset();
 
 private:

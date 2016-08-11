@@ -48,10 +48,15 @@ int main() {
     //read data
     {
         h5file f("test.h5", io::r);
+        auto d1 = f.open_dataset("data");
+        auto dims = d1.get_dspace().dims;
+        const int nx = dims[0];
+        const int ny = dims[1];
+        auto a1 = f.open_attribute("message");
+        auto a2 = f.open_attribute("series");
 
         // read matrix into Eigen matrix
         Eigen::Matrix<int,3,3,Eigen::RowMajor> A;
-        auto d1 = f.open_dataset("data");
         d1.read(A.data());
         cout << "Eigen matrix" << endl;
         cout << A << endl;
@@ -60,16 +65,32 @@ int main() {
         // read matrix into Boost multi_array
         const int drank = 2;
         using array_type = boost::multi_array<int, drank>;
-        array_type B(boost::extents[3][3]);
+        array_type B(boost::extents[nx][ny]);
         d1.read(B.data());
 
         cout << endl;
         cout << "Boost matrix" << endl;
-        for (int i = 0; i != 3; i++) {
-            for (int j = 0; j != 3; j++) {
+        for (int i = 0; i != nx; i++) {
+            for (int j = 0; j != ny; j++) {
                 cout << B[i][j] << " ";
             }
             cout << endl;
+        }
+
+        //read string message
+        char* c_message[1];
+        a1.read(c_message);
+        string message(*c_message);
+        cout << endl;
+        cout << message << endl;
+
+        //read string array
+        dims = a2.get_dspace().dims;
+        char** c_message_2 = new char*[dims[0]];
+        a2.read(c_message_2);
+        cout << endl;
+        for (int i = 0; i != dims[0]; i++) {
+            cout << c_message_2[i] << endl;
         }
 
     }
