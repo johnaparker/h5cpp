@@ -1,4 +1,5 @@
 #include "h5group.h"
+#include "h5err.h"
 #include <iostream>
 
 using namespace std;
@@ -73,7 +74,7 @@ h5dset h5group::create_or_open_dataset(string name, dtype datatype, dspace datas
 }
 
 bool h5group::object_exists(string name) {
-    status = H5Eset_auto1(nullptr, nullptr);
+    error_lock err_lock;
     H5O_info_t object_info;
     status = H5Oget_info_by_name(group_id, name.c_str(), &object_info, H5P_DEFAULT);
     if (status >= 0)

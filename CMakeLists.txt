@@ -58,6 +58,14 @@ add_test(Complex_Numbers complex)
 add_executable(performance tests/performance.cpp)
 target_link_libraries(performance ${PROJECT_LINK_LIBS} )
 add_test(Performance_Check performance)
+#Files Test
+add_executable(files tests/files.cpp)
+target_link_libraries(files ${PROJECT_LINK_LIBS} )
+add_test(Files files)
+#Read Test
+add_executable(read tests/read.cpp)
+target_link_libraries(read ${PROJECT_LINK_LIBS} )
+add_test(Read read)
 
 #Set the location for library installation
 install(TARGETS h5cpp DESTINATION lib)

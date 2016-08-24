@@ -1,4 +1,5 @@
 #include "h5file.h"
+#include "h5err.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -14,6 +15,13 @@ h5file::h5file(string name, io flag): filename(name) {
         case io::wn:
             file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT,
             H5P_DEFAULT); break;
+        case io::wp: {
+            error_lock err_lock;
+            file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT, H5P_DEFAULT);
+            if (file_id < 0)
+                file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+            break;
+        }
         case io::r:
             file_id = H5Fopen(name.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
             break;

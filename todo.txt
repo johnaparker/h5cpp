@@ -22,3 +22,6 @@
 [x] Rename dataspace to dspace
 
 [ ] When reassigning a dataset to a new dataset, program crashes...
+[ ] Improve error messages
+    [ ] Program should fail if unable to create or open a group, dset, etc.
+    [ ] wp file mode  --> spits out errors if file exists, but shouldn't
