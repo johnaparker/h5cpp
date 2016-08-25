@@ -66,5 +66,14 @@ int main() {
     a2.write(&dx);
     a3.write(&dt);
     a4.write(&new_value);
+
+    //assignment operato
+    h5file g;
+    g = h5file("other.h5", io::w);
+
+    auto dset = g.create_dataset("data", dtype::Int, dspace(dims));
+    dset.write(A.data());
+    dset = g.create_dataset("other", dtype::Int, dspace(dims));
+    dset.write(A.data());
 }
 

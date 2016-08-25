@@ -8,10 +8,10 @@
 
 [ ] add function qualifiers and consts
 
-[ ] add compound datatype support
-    [ ] string parts
-    [ ] array parts
-    [ ] abstract into own file
+[x] add compound datatype support
+    [x] string parts       !!! string cannot be the last element of the structure
+    [x] array parts
+    [x] abstract into own file
 
 [x] possibly add create_or_open call
 
@@ -25,3 +25,19 @@
 [ ] Improve error messages
     [ ] Program should fail if unable to create or open a group, dset, etc.
     [ ] wp file mode  --> spits out errors if file exists, but shouldn't
+
+[ ] MPI support
+
+[ ] Try compound datatypes with arrays: Eigen, Vector, new double, unique_ptr
+    [ ] For dynamically allocated arrays, use hvl_t 
+        see https://www.hdfgroup.org/hdf5-quest.html#bool
+[ ] Support for fixed length string
+
+[ ] Closing datatypes...monitor the number of things open in a file
+    [ ] If two datasets share a datatype/dataspace and one is closed...
+
+
+NOTE ON MPI AND FILE CLOSING
+Another exception occurs on parallel processing systems. Suppose on a parallel system an application has opened a file, a group in the file, and two datasets in the group. If the application uses the H5Fclose function to close the file, the call will fail with an error. The open group and datasets must be closed before the file can be closed. 
+    [ ] H5close should close everything in the right order
+>>>>>>> Stashed changes

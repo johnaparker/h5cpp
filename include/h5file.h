@@ -25,7 +25,9 @@ enum class io {
 
 class h5file {
 public:
-    h5file(std::string name, io flag);
+    h5file();
+    h5file(std::string name, io flag, hid_t prop = H5Pcreate(H5P_FILE_ACCESS));
+    h5file& operator=(const h5file& rhs); 
 
     h5group create_group(std::string name);
     h5dset create_dataset(std::string name, dtype datatype, dspace dataspace);
@@ -47,6 +49,7 @@ public:
 private:
     std::string filename;
     hid_t file_id;
+    hid_t prop_id;
     herr_t status;
 };
 

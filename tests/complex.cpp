@@ -55,7 +55,8 @@ int main() {
     complexType.insert("imag", dtype::Double);
 
     dims = {n};
-    auto my_dataset = f.create_dataset("my_data", complexType.memType(), dspace(dims));
+    //auto my_dataset = f.create_dataset("my_data", complexType, dspace(dims));
+    auto my_dataset = f.create_dataset("my_data", dtypeArray(dtype::Double, {2}), dspace(dims));
     my_dataset.write(values.data());
 
 

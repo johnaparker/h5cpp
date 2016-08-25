@@ -7,28 +7,39 @@ using namespace std;
 
 namespace h5cpp {
 
-h5file::h5file(string name, io flag): filename(name) {
+h5file::h5file() {
+    file_id = -1;
+}
+
+h5file::h5file(string name, io flag, hid_t prop): filename(name), prop_id(prop) {
     switch(flag) {
         case io::w:
             file_id = H5Fcreate(name.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT,
-            H5P_DEFAULT); break;
+            prop); break;
         case io::wn:
             file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT,
-            H5P_DEFAULT); break;
+            prop); break;
         case io::wp: {
             error_lock err_lock;
-            file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT, H5P_DEFAULT);
+            file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT, prop);
             if (file_id < 0)
-                file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+                file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, prop);
             break;
         }
         case io::r:
-            file_id = H5Fopen(name.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
+            file_id = H5Fopen(name.c_str(), H5F_ACC_RDONLY, prop);
             break;
         case io::rw:
-            file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+            file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, prop);
             break;
     }
+}
+
+h5file& h5file::operator=(const h5file& rhs) {
+    filename = rhs.filename;
+    file_id = H5Freopen(rhs.file_id);
+    return *this;
+
 }
 
 h5group h5file::create_group(string name) {
@@ -105,7 +116,10 @@ bool h5file::object_exists(string name) {
 }
 
 h5file::~h5file() {
-    H5Fclose(file_id);
+    if (file_id != -1) {
+        H5Pclose(prop_id);
+        H5Fclose(file_id);
+    }
 }
 
 }
