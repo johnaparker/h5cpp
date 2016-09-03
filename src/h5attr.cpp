@@ -10,7 +10,11 @@ h5attr::h5attr(string name, hid_t where, dtype datatype_, dspace dataspace):
             name(name), dataspace(dataspace) {
 
     datatype = getDtype(datatype_);
-    dspace_id = H5Screate_simple(dataspace.drank, dataspace.dims.data(), nullptr);
+    if (dataspace.dims.size() == 0)
+        dspace_id = H5Screate(H5S_SCALAR);
+    else
+        dspace_id = H5Screate_simple(dataspace.drank, dataspace.dims.data(), nullptr);
+
     attr_id = H5Acreate2(where, name.c_str(), datatype,
                     dspace_id, H5P_DEFAULT,H5P_DEFAULT);
 }

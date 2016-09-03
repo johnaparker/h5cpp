@@ -33,7 +33,7 @@ public:
     h5dset create_dataset(std::string name, dtype datatype, dspace dataspace);
     h5dset create_dataset(std::string name, hid_t datatype, dspace dataspace);
     h5dset create_dataset(std::string name, dtypeCompound datatype, dspace dataspace);
-    h5attr create_attribute(std::string name, dtype datatype, dspace dataspace);
+    h5attr create_attribute(std::string name, dtype datatype, dspace dataspace = dspace());
 
     h5group open_group(std::string name);
     h5dset open_dataset(std::string name);

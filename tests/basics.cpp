@@ -53,7 +53,7 @@ int main() {
     d3.write(A.data());
 
     {
-    auto a1 = f.create_attribute("dx", dtype::Int,  dspace(a_dims));
+    auto a1 = f.create_attribute("dx", dtype::Int);
     auto a2 = g1.create_attribute("dx", dtype::Int, dspace(a_dims));
     }
     auto a3 = g2.create_attribute("dt", dtype::Double, dspace(a_dims));

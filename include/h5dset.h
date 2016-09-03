@@ -21,7 +21,7 @@ public:
     h5dset(std::string name, hid_t where, hid_t datatype_, dspace dataspace);
     explicit h5dset(hid_t group_id);
 
-    h5attr create_attribute(std::string name, dtype datatype_, dspace dataspace);
+    h5attr create_attribute(std::string name, dtype datatype_, dspace dataspace = dspace());
 
     void extend(std::vector<hsize_t> size);
     void write(const void* data);
