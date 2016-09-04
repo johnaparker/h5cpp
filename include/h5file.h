@@ -2,6 +2,7 @@
 #define h5file_GUARD_H
 
 #include "hdf5.h"
+#include "mpi.h"
 #include <memory>
 #include "boost/multi_array.hpp"
 #include <string>
@@ -26,7 +27,7 @@ enum class io {
 class h5file {
 public:
     h5file();
-    h5file(std::string name, io flag, hid_t prop = H5Pcreate(H5P_FILE_ACCESS));
+    h5file(std::string name, io flag, bool mpi = false);
     h5file& operator=(const h5file& rhs); 
 
     h5group create_group(std::string name);

@@ -11,26 +11,30 @@ h5file::h5file() {
     file_id = -1;
 }
 
-h5file::h5file(string name, io flag, hid_t prop): filename(name), prop_id(prop) {
+h5file::h5file(string name, io flag, bool mpi): filename(name) {
+    prop_id = H5Pcreate(H5P_FILE_ACCESS);
+    if (mpi)
+        H5Pset_fapl_mpio(prop_id, MPI_COMM_WORLD, MPI_INFO_NULL);
+
     switch(flag) {
         case io::w:
             file_id = H5Fcreate(name.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT,
-            prop); break;
+            prop_id); break;
         case io::wn:
             file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT,
-            prop); break;
+            prop_id); break;
         case io::wp: {
             error_lock err_lock;
-            file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT, prop);
+            file_id = H5Fcreate(name.c_str(), H5F_ACC_EXCL, H5P_DEFAULT, prop_id);
             if (file_id < 0)
-                file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, prop);
+                file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, prop_id);
             break;
         }
         case io::r:
-            file_id = H5Fopen(name.c_str(), H5F_ACC_RDONLY, prop);
+            file_id = H5Fopen(name.c_str(), H5F_ACC_RDONLY, prop_id);
             break;
         case io::rw:
-            file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, prop);
+            file_id = H5Fopen(name.c_str(), H5F_ACC_RDWR, prop_id);
             break;
     }
 }
