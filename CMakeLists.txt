@@ -20,8 +20,16 @@ else()
     message(STATUS "hdf5 library found")
 endif()
 
+find_library(mpi_lib mpi)
+if(NOT mpi_lib)
+    message(FATAL_ERROR "MPI library not found")
+else()
+    message(STATUS "MPI library found")
+endif()
+
 #Include the headers
 include_directories(include)
+include_directories(/usr/lib/openmpi/include)
 file(GLOB_RECURSE HEADERS "include/*.h")
  
 #Define the sources
@@ -31,7 +39,7 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_library(h5cpp SHARED ${SOURCES})
  
 #Build executable
-set (PROJECT_LINK_LIBS h5cpp ${h5_lib})
+set (PROJECT_LINK_LIBS h5cpp ${h5_lib} ${mpi_lib})
 link_directories( build )
 
 add_executable(foo tests/main.cpp)

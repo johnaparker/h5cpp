@@ -25,6 +25,8 @@ public:
     h5group open_group(std::string name);
     h5dset open_dataset(std::string name);
     h5attr open_attribute(std::string name);
+    h5attr open_attribute(hsize_t id);
+    const hsize_t num_attrs();
 
     h5group create_or_open_group(std::string name);
     h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace);

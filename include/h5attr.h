@@ -22,6 +22,8 @@ public:
     void read(void* dest);
 
     const dspace get_dspace();
+    const hid_t get_dtype();
+    const std::string get_name();
 
     ~h5attr();
 

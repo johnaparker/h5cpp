@@ -58,6 +58,15 @@ h5attr h5group::open_attribute(string name) {
     return new_attr;
 }
 
+h5attr h5group::open_attribute(hsize_t id) {
+    hid_t attr_id = H5Aopen_idx(group_id, id); 
+    auto new_attr = h5attr(attr_id);
+    return new_attr;
+}
+
+const hsize_t h5group::num_attrs() {
+    return H5Aget_num_attrs(group_id);
+}
 
 h5group h5group::create_or_open_group(string name) {
     if (object_exists(name))

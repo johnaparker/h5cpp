@@ -44,6 +44,14 @@ const dspace h5attr::get_dspace() {
     return dataspace;
 };
 
+const hid_t h5attr::get_dtype() {
+    return H5Tget_class(datatype);
+};
+
+const string h5attr::get_name() {
+    return name;
+}
+
 h5attr::~h5attr() {
     H5Aclose(attr_id);
     H5Sclose(dspace_id);
