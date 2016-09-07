@@ -17,6 +17,7 @@ hid_t getDtype(dtype datatype) {
         case dtype::ULLong: return H5T_NATIVE_ULLONG; break;
         case dtype::Float: return H5T_NATIVE_FLOAT; break;
         case dtype::Double: return H5T_NATIVE_DOUBLE; break;
+        case dtype::Reference: return H5T_STD_REF_OBJ; break;
 
         case dtype::String: 
             return H5Tcreate(H5T_STRING, H5T_VARIABLE); break;

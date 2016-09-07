@@ -14,6 +14,7 @@ enum class dtype {
     LLong, ULLong,
     Float, Double,
     String,
+    Reference,
 };
 
 hid_t getDtype(dtype datatype);

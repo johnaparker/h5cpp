@@ -68,12 +68,19 @@ int main() {
     a4.write(&new_value);
 
     //assignment operato
-    h5file g;
-    g = h5file("other.h5", io::w);
+    //h5file g;
+    //g = h5file("other.h5", io::w);
 
-    auto dset = g.create_dataset("data", dtype::Int, dspace(dims));
-    dset.write(A.data());
-    dset = g.create_dataset("other", dtype::Int, dspace(dims));
-    dset.write(A.data());
+    //auto dset = g.create_dataset("data", dtype::Int, dspace(dims));
+    //dset.write(A.data());
+    //dset = g.create_dataset("other", dtype::Int, dspace(dims));
+    //dset.write(A.data());
+    //
+    auto a5 = f.create_attribute("pointer", dtype::Reference);
+    hobj_ref_t w;
+    f.create_reference(&w, "/data"), 
+    a5.write(&w);
+
+
 }
 

@@ -68,6 +68,7 @@ hsize_t h5group::num_attrs() {
     return H5Aget_num_attrs(group_id);
 }
 
+
 h5group h5group::create_or_open_group(string name) {
     if (object_exists(name))
         return open_group(name);
