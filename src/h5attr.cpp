@@ -44,7 +44,7 @@ const dspace h5attr::get_dspace() {
     return dataspace;
 };
 
-const hid_t h5attr::get_dtype() {
+hid_t h5attr::get_dtype() {
     return H5Tget_class(datatype);
 };
 

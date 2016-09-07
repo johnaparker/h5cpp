@@ -64,7 +64,7 @@ h5attr h5group::open_attribute(hsize_t id) {
     return new_attr;
 }
 
-const hsize_t h5group::num_attrs() {
+hsize_t h5group::num_attrs() {
     return H5Aget_num_attrs(group_id);
 }
 
