@@ -104,9 +104,28 @@ h5attr h5dset::open_attribute(string name) {
     return new_attr;
 }
 
+h5attr h5dset::open_attribute(hsize_t id) {
+    hid_t attr_id = H5Aopen_idx(dset_id, id); 
+    auto new_attr = h5attr(attr_id);
+    return new_attr;
+}
+
+hsize_t h5dset::num_attrs() {
+    return H5Aget_num_attrs(dset_id);
+}
+
+
 const dspace h5dset::get_dspace() {
     return dataspace;
 };
+
+hid_t h5dset::get_dtype() {
+    return H5Tget_class(datatype);
+};
+
+const string h5dset::get_name() {
+    return name;
+}
 
 h5dset::~h5dset() {
     H5Pclose(prop);
