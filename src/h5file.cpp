@@ -94,6 +94,15 @@ h5attr h5file::open_attribute(string name, string base) {
     return new_attr;
 }
 
+h5attr h5file::open_attribute(hsize_t id) {
+    hid_t attr_id = H5Aopen_idx(file_id, id); 
+    auto new_attr = h5attr(attr_id);
+    return new_attr;
+}
+
+hsize_t h5file::num_attrs() {
+    return H5Aget_num_attrs(file_id);
+}
 
 h5group h5file::create_or_open_group(string name) {
     if (object_exists(name))
@@ -117,6 +126,10 @@ bool h5file::object_exists(string name) {
         return true;
     else
         return false;
+}
+
+const string h5file::get_name() {
+    return filename;
 }
 
 h5file::~h5file() {
