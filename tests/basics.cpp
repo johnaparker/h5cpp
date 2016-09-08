@@ -31,6 +31,7 @@ int main() {
 
 
 
+    {
     h5file f("test.h5", io::w);
     {
         auto g1 = f.create_group("/sub");
@@ -77,10 +78,19 @@ int main() {
     //dset.write(A.data());
     //
     auto a5 = f.create_attribute("pointer", dtype::Reference);
-    hobj_ref_t w;
+    h5ref w;
     f.create_reference(&w, "/data"), 
     a5.write(&w);
+    }
 
+    h5file f("test.h5", io::r);
+    auto a = f.open_attribute("pointer");
+    h5ref w;
+    a.read(&w);
+    auto dset = f.open_dataset(w);
+
+    dset.read(A.data());
+    cout << A[1][1] << endl;
 
 }
 

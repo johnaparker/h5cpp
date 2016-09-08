@@ -23,7 +23,9 @@ public:
     h5attr create_attribute(std::string name, dtype datatype, dspace dataspace = dspace());
 
     h5group open_group(std::string name);
+    h5group open_group(h5ref reference);
     h5dset open_dataset(std::string name);
+    h5dset open_dataset(h5ref reference);
     h5attr open_attribute(std::string name);
     h5attr open_attribute(hsize_t id);
 
@@ -31,6 +33,8 @@ public:
 
     h5group create_or_open_group(std::string name);
     h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace);
+
+    void create_reference(void* refer, std::string obj_name);
 
     bool object_exists(std::string name);
 

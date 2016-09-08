@@ -3,6 +3,8 @@
 [ ] Probably add reference class...we need to know what a reference is pointing to
     [ ] Perhaps return a opened h5group or h5dset of reference
 
+[ ] Add reference test. Remove from basics
+
 
 [ ] If file closes, make sure unique_ptrs are safe
 

@@ -81,8 +81,21 @@ h5group h5file::open_group(string name) {
     return new_group;
 }
 
+h5group h5file::open_group(h5ref reference) {
+    hid_t group_id = H5Rdereference(file_id, H5P_DEFAULT, H5R_OBJECT, &reference);
+    auto new_group = h5group(group_id);
+    return new_group;
+}
+
 h5dset h5file::open_dataset(string name) {
     hid_t dset_id = H5Dopen2(file_id, name.c_str(), H5P_DEFAULT); 
+    auto new_dset = h5dset(dset_id);
+    return new_dset;
+}
+
+
+h5dset h5file::open_dataset(h5ref reference) {
+    hid_t dset_id = H5Rdereference(file_id, H5P_DEFAULT, H5R_OBJECT, &reference);
     auto new_dset = h5dset(dset_id);
     return new_dset;
 }
