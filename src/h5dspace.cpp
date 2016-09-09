@@ -21,14 +21,14 @@ dspace::dspace(vector<hsize_t> dims, vector<hsize_t> max_dims_,
 
 dspace::dspace(hid_t dspace_id, hid_t prop_id) {
     drank = H5Sget_simple_extent_ndims(dspace_id);
-    auto p_dims = make_unique<hsize_t[]>(drank);
-    auto p_max_dims = make_unique<hsize_t[]>(drank);
+    auto p_dims = unique_ptr<hsize_t[]>(new hsize_t[drank]);
+    auto p_max_dims = unique_ptr<hsize_t[]>(new hsize_t[drank]);
     H5Sget_simple_extent_dims(dspace_id, p_dims.get(), p_max_dims.get());
     dims.assign(p_dims.get(), p_dims.get() + drank);
     max_dims.assign(p_max_dims.get(), p_max_dims.get() + drank);
 
     if (prop_id != H5P_DEFAULT && H5Pget_layout(prop_id) == H5D_CHUNKED) {
-        auto p_chunk_dims = make_unique<hsize_t[]>(drank);
+        auto p_chunk_dims = unique_ptr<hsize_t[]>(new hsize_t[drank]);
         H5Pget_chunk(prop_id, drank, p_chunk_dims.get());
         chunk_dims.assign(p_chunk_dims.get(), p_chunk_dims.get() + drank);
     }

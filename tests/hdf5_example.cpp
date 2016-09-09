@@ -45,7 +45,7 @@ int main() {
 
     //create an attribute
     int atr_len = 1;
-    auto a_dims = make_unique<hsize_t[]>(atr_len);
+    auto a_dims = unique_ptr<hsize_t[]>(new hsize_t[atr_len]);
     a_dims[0] = 1;
     double a_value = 3.2;
 
