@@ -20,13 +20,6 @@ else()
     message(STATUS "hdf5 library found")
 endif()
 
-find_library(mpi_lib mpi)
-if(NOT mpi_lib)
-    message(FATAL_ERROR "MPI library not found")
-else()
-    message(STATUS "MPI library found")
-endif()
-
 #Include the headers
 include_directories(include)
 include_directories(/usr/lib/openmpi/include)

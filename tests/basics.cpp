@@ -31,6 +31,7 @@ int main() {
 
 
 
+    {
     h5file f("test.h5", io::w);
     {
         auto g1 = f.create_group("/sub");
@@ -68,12 +69,28 @@ int main() {
     a4.write(&new_value);
 
     //assignment operato
-    h5file g;
-    g = h5file("other.h5", io::w);
+    //h5file g;
+    //g = h5file("other.h5", io::w);
 
-    auto dset = g.create_dataset("data", dtype::Int, dspace(dims));
-    dset.write(A.data());
-    dset = g.create_dataset("other", dtype::Int, dspace(dims));
-    dset.write(A.data());
+    //auto dset = g.create_dataset("data", dtype::Int, dspace(dims));
+    //dset.write(A.data());
+    //dset = g.create_dataset("other", dtype::Int, dspace(dims));
+    //dset.write(A.data());
+    //
+    auto a5 = f.create_attribute("pointer", dtype::Reference);
+    h5ref w;
+    f.create_reference(&w, "/data"), 
+    a5.write(&w);
+    }
+
+    h5file f("test.h5", io::r);
+    auto a = f.open_attribute("pointer");
+    h5ref w;
+    a.read(&w);
+    auto dset = f.open_dataset(w);
+
+    dset.read(A.data());
+    cout << A[1][1] << endl;
+
 }
 

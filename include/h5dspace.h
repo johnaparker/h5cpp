@@ -7,6 +7,7 @@
 namespace h5cpp {
 
 extern hsize_t inf;
+using h5ref = hobj_ref_t; 
 
 struct dspace {
     explicit dspace(std::vector<hsize_t> dims, std::vector<hsize_t> max_dims={},

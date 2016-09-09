@@ -1,3 +1,11 @@
+[ ] Add code to loop through groups or datasets in a file or group
+    [ ] Add loop.cpp test to test these
+[ ] Probably add reference class...we need to know what a reference is pointing to
+    [ ] Perhaps return a opened h5group or h5dset of reference
+
+[ ] Add reference test. Remove from basics
+
+
 [ ] If file closes, make sure unique_ptrs are safe
 
 [ ] read calls
@@ -26,7 +34,7 @@
     [ ] Program should fail if unable to create or open a group, dset, etc.
     [ ] wp file mode  --> spits out errors if file exists, but shouldn't
 
-[ ] MPI support
+[x] MPI support
 
 [ ] Try compound datatypes with arrays: Eigen, Vector, new double, unique_ptr
     [ ] For dynamically allocated arrays, use hvl_t 

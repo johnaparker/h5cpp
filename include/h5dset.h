@@ -34,8 +34,12 @@ public:
                 std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
 
     h5attr open_attribute(std::string name);
+    h5attr open_attribute(hsize_t id);
+    hsize_t num_attrs();
 
     const dspace get_dspace();
+    hid_t get_dtype();
+    const std::string get_name();
 
     ~h5dset();
 

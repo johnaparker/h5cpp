@@ -81,8 +81,21 @@ h5group h5file::open_group(string name) {
     return new_group;
 }
 
+h5group h5file::open_group(h5ref reference) {
+    hid_t group_id = H5Rdereference(file_id, H5P_DEFAULT, H5R_OBJECT, &reference);
+    auto new_group = h5group(group_id);
+    return new_group;
+}
+
 h5dset h5file::open_dataset(string name) {
     hid_t dset_id = H5Dopen2(file_id, name.c_str(), H5P_DEFAULT); 
+    auto new_dset = h5dset(dset_id);
+    return new_dset;
+}
+
+
+h5dset h5file::open_dataset(h5ref reference) {
+    hid_t dset_id = H5Rdereference(file_id, H5P_DEFAULT, H5R_OBJECT, &reference);
     auto new_dset = h5dset(dset_id);
     return new_dset;
 }
@@ -94,6 +107,15 @@ h5attr h5file::open_attribute(string name, string base) {
     return new_attr;
 }
 
+h5attr h5file::open_attribute(hsize_t id) {
+    hid_t attr_id = H5Aopen_idx(file_id, id); 
+    auto new_attr = h5attr(attr_id);
+    return new_attr;
+}
+
+hsize_t h5file::num_attrs() {
+    return H5Aget_num_attrs(file_id);
+}
 
 h5group h5file::create_or_open_group(string name) {
     if (object_exists(name))
@@ -109,6 +131,10 @@ h5dset h5file::create_or_open_dataset(string name, dtype datatype, dspace datasp
         return create_dataset(name, datatype, dataspace);
 }
 
+void h5file::create_reference(void* refer, string obj_name) {
+    H5Rcreate(refer, file_id, obj_name.c_str(),H5R_OBJECT,-1);
+}
+
 bool h5file::object_exists(string name) {
     status = H5Eset_auto1(nullptr, nullptr);
     H5O_info_t object_info;
@@ -117,6 +143,10 @@ bool h5file::object_exists(string name) {
         return true;
     else
         return false;
+}
+
+const string h5file::get_name() {
+    return filename;
 }
 
 h5file::~h5file() {
