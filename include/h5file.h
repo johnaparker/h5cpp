@@ -28,6 +28,7 @@ class h5file {
 public:
     h5file();
     h5file(std::string name, io flag, bool mpi = false);
+    h5file(const h5file& other);
     h5file& operator=(const h5file& rhs); 
 
     h5group create_group(std::string name);
