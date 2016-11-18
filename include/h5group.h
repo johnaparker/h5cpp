@@ -14,6 +14,7 @@ namespace h5cpp {
 
 class h5group {
 public:
+    h5group();
     h5group(std::string name, hid_t where);
     explicit h5group(hid_t group_id);
 

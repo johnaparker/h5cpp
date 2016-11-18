@@ -17,6 +17,7 @@ class h5dset {
     friend class h5group;
 
 public:
+    h5dset();
     h5dset(std::string name, hid_t where, dtype datatype_, dspace dataspace);
     h5dset(std::string name, hid_t where, hid_t datatype_, dspace dataspace);
     explicit h5dset(hid_t group_id);

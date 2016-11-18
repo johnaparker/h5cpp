@@ -6,6 +6,8 @@ using namespace std;
 
 namespace h5cpp {
 
+h5group::h5group() {}
+
 h5group::h5group(string name, hid_t where): name(name) {
     group_id = H5Gcreate2(where, name.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 }

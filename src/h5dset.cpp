@@ -6,6 +6,8 @@ using namespace std;
 
 namespace h5cpp {
 
+h5dset::h5dset() {};
+
 h5dset::h5dset(string name, hid_t where, hid_t datatype_, dspace dataspace):
       name(name), dataspace(dataspace), datatype(datatype_) {
 
