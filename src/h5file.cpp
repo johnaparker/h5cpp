@@ -60,17 +60,19 @@ h5file::h5file(string name, io flag, bool mpi): filename(name) {
     }
 }
 
-//h5file::h5file(const h5file& other) {
-    //filename = other.filename;
-    //file_id = H5Freopen(other.file_id);
-//}
+h5file::h5file(const h5file& other) {
+    filename = other.filename;
+    file_id = H5Freopen(other.file_id);
+}
 
-//h5file& h5file::operator=(const h5file& rhs) {
-    //filename = rhs.filename;
-    //file_id = H5Freopen(rhs.file_id);
-    //return *this;
+h5file& h5file::operator=(const h5file& rhs) {
+    if (this != &rhs) {
+        filename = rhs.filename;
+        file_id = H5Freopen(rhs.file_id);
+    }
+    return *this;
 
-//}
+}
 
 h5group h5file::create_group(string name) {
     auto new_group = h5group(name, file_id);

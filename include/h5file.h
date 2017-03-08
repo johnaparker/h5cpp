@@ -27,9 +27,9 @@ enum class io {
 class h5file {
 public:
     h5file();
-    h5file(const h5file&) = delete;
+    h5file(const h5file&);
     h5file(h5file&&);
-    h5file& operator=(h5file&) = delete;
+    h5file& operator=(const h5file&);
     h5file& operator=(h5file&&);
     h5file(std::string name, io flag, bool mpi = false);
     //h5file(const h5file& other);
