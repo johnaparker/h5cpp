@@ -20,6 +20,10 @@ public:
     h5dset();
     h5dset(std::string name, hid_t where, dtype datatype_, dspace dataspace);
     h5dset(std::string name, hid_t where, hid_t datatype_, dspace dataspace);
+    h5dset(const h5dset&) = delete;
+    h5dset(h5dset&&);
+    h5dset& operator=(h5dset&) = delete;
+    h5dset& operator=(h5dset&&);
     explicit h5dset(hid_t group_id);
 
     h5attr create_attribute(std::string name, dtype datatype_, dspace dataspace = dspace());
@@ -42,6 +46,7 @@ public:
     hid_t get_dtype();
     const std::string get_name();
 
+    void close();
     ~h5dset();
 
 private:

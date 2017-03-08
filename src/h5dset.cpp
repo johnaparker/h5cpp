@@ -8,9 +8,34 @@ namespace h5cpp {
 
 h5dset::h5dset() {};
 
+h5dset::h5dset(h5dset&& other): dset_id(other.dset_id), dspace_id(other.dspace_id), 
+    filespace(other.filespace), memspace(other.memspace), prop(other.prop),
+    dataspace(other.dataspace), datatype(other.datatype) {
+        //set other to closed
+        other.dset_id = -1;
+}
+
+h5dset& h5dset::operator=(h5dset&& other) {
+    //close current resources
+    close();
+
+    //move
+    dset_id = other.dset_id;
+    dspace_id = other.dspace_id;
+    filespace = other.filespace;
+    memspace = other.memspace;
+    prop = other.prop;
+    dataspace = other.dataspace;
+    datatype = other.datatype;
+
+    //set other to closed
+    other.dset_id = -1;
+
+    return *this;
+}
+
 h5dset::h5dset(string name, hid_t where, hid_t datatype_, dspace dataspace):
       name(name), dataspace(dataspace), datatype(datatype_) {
-
     memspace = H5P_DEFAULT;
     prop = H5P_DEFAULT;
     if (dataspace.chunked || dataspace.extendable) {
@@ -129,10 +154,17 @@ const string h5dset::get_name() {
     return name;
 }
 
+void h5dset::close() {
+    if (dset_id != -1) {
+        H5Pclose(prop);
+        H5Dclose(dset_id);
+        H5Sclose(dspace_id);
+        dset_id = -1;
+    }
+}
+
 h5dset::~h5dset() {
-    H5Pclose(prop);
-    H5Dclose(dset_id);
-    H5Sclose(dspace_id);
+    close();
 } 
 
 void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,
