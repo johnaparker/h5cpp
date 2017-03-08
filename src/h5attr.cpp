@@ -6,6 +6,29 @@ using namespace std;
 
 namespace h5cpp {
 
+h5attr::h5attr(h5attr&& other): name(other.name), attr_id(other.attr_id), 
+    dataspace(other.dataspace), datatype(other.datatype) {
+        //set other to closed
+        other.attr_id = -1;
+}
+
+h5attr& h5attr::operator=(h5attr&& other) {
+    //close current resources
+    close();
+
+    //move
+    name = other.name;
+    attr_id = other.attr_id;
+    dspace_id = other.dspace_id;
+    dataspace = other.dataspace;
+    datatype = other.datatype;
+
+    //set other to closed
+    other.attr_id= -1;
+
+    return *this;
+}
+
 h5attr::h5attr(string name, hid_t where, dtype datatype_, dspace dataspace):
             name(name), dataspace(dataspace) {
 
@@ -52,9 +75,15 @@ const string h5attr::get_name() {
     return name;
 }
 
+void h5attr::close() {
+    if (attr_id != -1) {
+        H5Aclose(attr_id);
+        H5Sclose(dspace_id);
+    }
+}
+
 h5attr::~h5attr() {
-    H5Aclose(attr_id);
-    H5Sclose(dspace_id);
+    close();
 }
 
 }

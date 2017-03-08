@@ -14,6 +14,10 @@ namespace h5cpp {
 
 class h5attr {
 public:
+    h5attr(const h5attr&) = delete;
+    h5attr(h5attr&&);
+    h5attr& operator=(h5attr&) = delete;
+    h5attr& operator=(h5attr&&);
     h5attr(std::string name, hid_t where, dtype datatype_, dspace dataspace = dspace());
     explicit h5attr(hid_t attr_id);
 
@@ -25,6 +29,7 @@ public:
     hid_t get_dtype();
     const std::string get_name();
 
+    void close();
     ~h5attr();
 
 private:
