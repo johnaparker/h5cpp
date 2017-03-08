@@ -93,6 +93,14 @@ int main() {
             cout << c_message_2[i] << endl;
         }
 
+        //alternatively, in a boost array
+        boost::multi_array<char*,1> str_array(boost::extents[dims[0]]);
+        a2.read(str_array.data()); 
+        cout << endl;
+        for (int i = 0; i != dims[0]; i++) {
+            cout << string(str_array[i]) << endl;
+        }
+
     }
 
 }
