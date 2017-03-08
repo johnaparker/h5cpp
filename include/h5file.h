@@ -27,9 +27,13 @@ enum class io {
 class h5file {
 public:
     h5file();
+    h5file(const h5file&) = delete;
+    h5file(h5file&&);
+    h5file& operator=(h5file&) = delete;
+    h5file& operator=(h5file&&);
     h5file(std::string name, io flag, bool mpi = false);
-    h5file(const h5file& other);
-    h5file& operator=(const h5file& rhs); 
+    //h5file(const h5file& other);
+    //h5file& operator=(const h5file& rhs); 
 
     h5group create_group(std::string name);
     h5dset create_dataset(std::string name, dtype datatype, dspace dataspace);
@@ -55,6 +59,7 @@ public:
 
     const std::string get_name();
 
+    void close();
     ~h5file();
 
 private:

@@ -15,6 +15,10 @@ namespace h5cpp {
 class h5group {
 public:
     h5group();
+    h5group(const h5group&) = delete;
+    h5group(h5group&&);
+    h5group& operator=(h5group&) = delete;
+    h5group& operator=(h5group&&);
     h5group(std::string name, hid_t where);
     explicit h5group(hid_t group_id);
 
@@ -39,6 +43,7 @@ public:
 
     bool object_exists(std::string name);
 
+    void close();
     ~h5group();
 
 private:

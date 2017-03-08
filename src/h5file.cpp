@@ -11,6 +11,27 @@ h5file::h5file() {
     file_id = -1;
 }
 
+h5file::h5file(h5file&& other): filename(other.filename), file_id(other.file_id),
+                 prop_id(other.prop_id) {
+    //set other to closed
+    other.file_id = -1;
+}
+
+h5file& h5file::operator=(h5file&& other) {
+    //close current resources
+    close();
+
+    //move
+    filename = other.filename;
+    file_id = other.file_id;
+    prop_id = other.prop_id;
+
+    //set other to closed
+    other.file_id = -1;
+
+    return *this;
+}
+
 h5file::h5file(string name, io flag, bool mpi): filename(name) {
     prop_id = H5Pcreate(H5P_FILE_ACCESS);
     if (mpi)
@@ -39,17 +60,17 @@ h5file::h5file(string name, io flag, bool mpi): filename(name) {
     }
 }
 
-h5file::h5file(const h5file& other) {
-    filename = other.filename;
-    file_id = H5Freopen(other.file_id);
-}
+//h5file::h5file(const h5file& other) {
+    //filename = other.filename;
+    //file_id = H5Freopen(other.file_id);
+//}
 
-h5file& h5file::operator=(const h5file& rhs) {
-    filename = rhs.filename;
-    file_id = H5Freopen(rhs.file_id);
-    return *this;
+//h5file& h5file::operator=(const h5file& rhs) {
+    //filename = rhs.filename;
+    //file_id = H5Freopen(rhs.file_id);
+    //return *this;
 
-}
+//}
 
 h5group h5file::create_group(string name) {
     auto new_group = h5group(name, file_id);
@@ -154,11 +175,15 @@ const string h5file::get_name() {
     return filename;
 }
 
-h5file::~h5file() {
+void h5file::close() {
     if (file_id != -1) {
         H5Pclose(prop_id);
         H5Fclose(file_id);
     }
+}
+
+h5file::~h5file() {
+    close();
 }
 
 }

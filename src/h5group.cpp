@@ -8,6 +8,25 @@ namespace h5cpp {
 
 h5group::h5group() {}
 
+h5group::h5group(h5group&& other): name(other.name), group_id(other.group_id) {
+        //set other to closed
+        other.group_id = -1;
+}
+
+h5group& h5group::operator=(h5group&& other) {
+    //close current resources
+    close();
+
+    //move
+    name = other.name;
+    group_id = other.group_id;
+
+    //set other to closed
+    other.group_id = -1;
+
+    return *this;
+}
+
 h5group::h5group(string name, hid_t where): name(name) {
     group_id = H5Gcreate2(where, name.c_str(), H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 }
@@ -111,8 +130,15 @@ bool h5group::object_exists(string name) {
         return false;
 }
 
+void h5group::close() {
+    if (group_id != -1) {
+        H5Gclose(group_id);
+        group_id = -1;
+    }
+}
+
 h5group::~h5group() {
-    H5Gclose(group_id);
+    close();
 }
 
 }

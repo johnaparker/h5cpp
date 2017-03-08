@@ -8,7 +8,7 @@ namespace h5cpp {
 
 h5dset::h5dset() {};
 
-h5dset::h5dset(h5dset&& other): dset_id(other.dset_id), dspace_id(other.dspace_id), 
+h5dset::h5dset(h5dset&& other): name(other.name), dset_id(other.dset_id), dspace_id(other.dspace_id), 
     filespace(other.filespace), memspace(other.memspace), prop(other.prop),
     dataspace(other.dataspace), datatype(other.datatype) {
         //set other to closed
@@ -20,6 +20,7 @@ h5dset& h5dset::operator=(h5dset&& other) {
     close();
 
     //move
+    name = other.name;
     dset_id = other.dset_id;
     dspace_id = other.dspace_id;
     filespace = other.filespace;
