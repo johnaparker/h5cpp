@@ -6,6 +6,8 @@ using namespace std;
 
 namespace h5cpp {
 
+const int MAX_NAME = 1024;
+
 h5group::h5group() {}
 
 h5group::h5group(h5group&& other): name(other.name), group_id(other.group_id) {
@@ -32,7 +34,6 @@ h5group::h5group(string name, hid_t where): name(name) {
 }
 
 h5group::h5group(hid_t group_id): group_id(group_id) {
-    const int MAX_NAME = 1024;
     char group_name[MAX_NAME];
     H5Iget_name(group_id, group_name, MAX_NAME); 
     name = string(group_name);
@@ -101,6 +102,21 @@ hsize_t h5group::num_attrs() {
     return H5Aget_num_attrs(group_id);
 }
 
+hsize_t h5group::num_objects() {
+    hsize_t num_objs;
+    H5Gget_num_objs(group_id, &num_objs);
+    return num_objs;
+}
+
+string h5group::get_object_name(hsize_t idx) {
+    char group_name[MAX_NAME];
+    H5Gget_objname_by_idx(group_id, idx, group_name, MAX_NAME);
+    return group_name;
+}
+
+hsize_t h5group::get_object_type(hsize_t idx) {
+    return H5Gget_objtype_by_idx(group_id, idx);
+}
 
 h5group h5group::create_or_open_group(string name) {
     if (object_exists(name))

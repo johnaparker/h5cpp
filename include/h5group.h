@@ -34,7 +34,10 @@ public:
     h5attr open_attribute(std::string name);
     h5attr open_attribute(hsize_t id);
 
-    hsize_t num_attrs();
+    hsize_t num_attrs();     // return number of attributes
+    hsize_t num_objects();   // return number of groups + number of datasets
+    std::string get_object_name(hsize_t idx);  // get object name by id
+    hsize_t get_object_type(hsize_t idx);  // get object type by id
 
     h5group create_or_open_group(std::string name);
     h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace);

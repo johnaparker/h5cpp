@@ -7,6 +7,8 @@ using namespace std;
 
 namespace h5cpp {
 
+const int MAX_NAME = 1024;
+
 h5file::h5file() {
     file_id = -1;
 }
@@ -145,6 +147,22 @@ hsize_t h5file::num_attrs() {
     return H5Aget_num_attrs(file_id);
 }
 
+hsize_t h5file::num_objects() {
+    hsize_t num_objs;
+    H5Gget_num_objs(file_id, &num_objs);
+    return num_objs;
+}
+
+string h5file::get_object_name(hsize_t idx) {
+    char group_name[MAX_NAME];
+    H5Gget_objname_by_idx(file_id, idx, group_name, MAX_NAME);
+    return group_name;
+}
+
+hsize_t h5file::get_object_type(hsize_t idx) {
+    return H5Gget_objtype_by_idx(file_id, idx);
+}
+
 h5group h5file::create_or_open_group(string name) {
     if (object_exists(name))
         return open_group(name);
@@ -186,6 +204,7 @@ void h5file::close() {
 
 h5file::~h5file() {
     close();
+
 }
 
 }
