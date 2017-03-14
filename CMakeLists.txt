@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 3.5.2)
 project(h5cpp)
-set(CMAKE_BUILD_TYPE Debug)
 enable_testing()
  
 #Compiler flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wl,--no-as-needed -ldl")
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
+if(${CMAKE_BUILD_TYPE} STREQUAL "RELEASE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-elseif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+elseif(${CMAKE_BUILD_TYPE} STREQUAL "DEBUG")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -g -Og")
 endif()
+message(STATUS "FLAGS: ${CMAKE_CXX_FLAGS}")
 
 #Dependencies
 find_library(h5_lib hdf5)
