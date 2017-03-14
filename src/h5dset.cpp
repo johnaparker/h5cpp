@@ -6,7 +6,9 @@ using namespace std;
 
 namespace h5cpp {
 
-h5dset::h5dset() {};
+h5dset::h5dset() {
+    dset_id = -1;
+};
 
 h5dset::h5dset(h5dset&& other): name(other.name), dset_id(other.dset_id), dspace_id(other.dspace_id), 
     filespace(other.filespace), memspace(other.memspace), prop(other.prop),

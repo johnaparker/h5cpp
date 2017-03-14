@@ -8,7 +8,9 @@ namespace h5cpp {
 
 const int MAX_NAME = 1024;
 
-h5group::h5group() {}
+h5group::h5group() {
+    group_id = -1;
+}
 
 h5group::h5group(h5group&& other): name(other.name), group_id(other.group_id) {
         //set other to closed
