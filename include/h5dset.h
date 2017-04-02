@@ -26,25 +26,25 @@ public:
     h5dset& operator=(h5dset&&);
     explicit h5dset(hid_t group_id);
 
-    h5attr create_attribute(std::string name, dtype datatype_, dspace dataspace = dspace());
+    h5attr create_attribute(std::string name, dtype datatype_, dspace dataspace = dspace()) const;
 
     void extend(std::vector<hsize_t> size);
-    void write(const void* data);
+    void write(const void* data) const;
     void select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count,
                 std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
     void append(const void* data);
 
-    void read(void* dest);
+    void read(void* dest) const;
     void select_read(void* dest, std::vector<hsize_t> offset, std::vector<hsize_t> count,
                 std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
 
-    h5attr open_attribute(std::string name);
-    h5attr open_attribute(hsize_t id);
-    hsize_t num_attrs();
+    h5attr open_attribute(std::string name) const;
+    h5attr open_attribute(hsize_t id) const;
+    hsize_t num_attrs() const;
 
-    const dspace get_dspace();
-    hid_t get_dtype();
-    const std::string get_name();
+    const dspace get_dspace() const;
+    hid_t get_dtype() const;
+    std::string get_name() const;
 
     void close();
     ~h5dset();
@@ -60,7 +60,6 @@ private:
     hid_t dspace_id, filespace, memspace, prop;
     dspace dataspace;
     hid_t datatype;
-    herr_t status;
 };
 
 }

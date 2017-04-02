@@ -35,32 +35,32 @@ public:
     //h5file(const h5file& other);
     //h5file& operator=(const h5file& rhs); 
 
-    h5group create_group(std::string name);
-    h5dset create_dataset(std::string name, dtype datatype, dspace dataspace);
-    h5dset create_dataset(std::string name, hid_t datatype, dspace dataspace);
-    h5dset create_dataset(std::string name, dtypeCompound datatype, dspace dataspace);
-    h5attr create_attribute(std::string name, dtype datatype, dspace dataspace = dspace());
+    h5group create_group(std::string name) const;
+    h5dset create_dataset(std::string name, dtype datatype, dspace dataspace) const;
+    h5dset create_dataset(std::string name, hid_t datatype, dspace dataspace) const;
+    h5dset create_dataset(std::string name, dtypeCompound datatype, dspace dataspace) const;
+    h5attr create_attribute(std::string name, dtype datatype, dspace dataspace = dspace()) const;
 
-    h5group open_group(std::string name);
-    h5group open_group(h5ref reference);
-    h5dset open_dataset(std::string name);
-    h5dset open_dataset(h5ref reference);
-    h5attr open_attribute(std::string name, std::string base="/");
-    h5attr open_attribute(hsize_t id);
+    h5group open_group(std::string name) const;
+    h5group open_group(h5ref reference) const;
+    h5dset open_dataset(std::string name) const;
+    h5dset open_dataset(h5ref reference) const;
+    h5attr open_attribute(std::string name, std::string base="/") const;
+    h5attr open_attribute(hsize_t id) const;
 
-    hsize_t num_attrs();     // return number of attributes
-    hsize_t num_objects();   // return number of groups + number of datasets
-    std::string get_object_name(hsize_t idx);  // get object name by id
-    hsize_t get_object_type(hsize_t idx);  // get object type by id
+    hsize_t num_attrs() const;     // return number of attributes
+    hsize_t num_objects() const;   // return number of groups + number of datasets
+    std::string get_object_name(hsize_t idx) const;  // get object name by id
+    hsize_t get_object_type(hsize_t idx) const;  // get object type by id
 
-    h5group create_or_open_group(std::string name);
-    h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace);
+    h5group create_or_open_group(std::string name) const;
+    h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace) const;
     
-    void create_reference(void* refer, std::string obj_name);
+    void create_reference(void* refer, std::string obj_name) const;
 
-    bool object_exists(std::string name);
+    bool object_exists(std::string name) const;
 
-    const std::string get_name();
+    std::string get_name() const;
 
     void close();
     ~h5file();
@@ -69,7 +69,6 @@ private:
     std::string filename;
     hid_t file_id;
     hid_t prop_id;
-    herr_t status;
 };
 
 }

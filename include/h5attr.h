@@ -21,13 +21,13 @@ public:
     h5attr(std::string name, hid_t where, dtype datatype_, dspace dataspace = dspace());
     explicit h5attr(hid_t attr_id);
 
-    void write(const void* data);
+    void write(const void* data) const;
 
-    void read(void* dest);
+    void read(void* dest) const;
 
-    const dspace get_dspace();
-    hid_t get_dtype();
-    const std::string get_name();
+    const dspace get_dspace() const;
+    hid_t get_dtype() const;
+    std::string get_name() const;
 
     void close();
     ~h5attr();
@@ -39,7 +39,6 @@ private:
     hid_t dspace_id;
     dspace dataspace;
     hid_t datatype;
-    herr_t status;
 };
 
 }

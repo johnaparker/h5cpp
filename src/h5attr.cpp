@@ -54,24 +54,24 @@ h5attr::h5attr(hid_t attr_id): attr_id(attr_id) {
     dataspace = dspace(dspace_id); 
 }
 
-void h5attr::write(const void* data) {
-    status = H5Awrite(attr_id, datatype, data);
+void h5attr::write(const void* data) const {
+    H5Awrite(attr_id, datatype, data);
 }
 
-void h5attr::read(void* dest) {
-    status = H5Aread(attr_id, datatype, dest);
+void h5attr::read(void* dest) const {
+    H5Aread(attr_id, datatype, dest);
 }
 
 
-const dspace h5attr::get_dspace() {
+const dspace h5attr::get_dspace() const {
     return dataspace;
 };
 
-hid_t h5attr::get_dtype() {
+hid_t h5attr::get_dtype() const {
     return H5Tget_class(datatype);
 };
 
-const string h5attr::get_name() {
+string h5attr::get_name() const {
     return name;
 }
 

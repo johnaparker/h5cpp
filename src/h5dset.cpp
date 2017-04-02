@@ -43,9 +43,9 @@ h5dset::h5dset(string name, hid_t where, hid_t datatype_, dspace dataspace):
     prop = H5P_DEFAULT;
     if (dataspace.chunked || dataspace.extendable) {
         prop = H5Pcreate(H5P_DATASET_CREATE);
-        status = H5Pset_chunk(prop, dataspace.drank, dataspace.chunk_dims.data());
+        H5Pset_chunk(prop, dataspace.drank, dataspace.chunk_dims.data());
         if (dataspace.compressed) {
-            status = H5Pset_deflate(prop, 6);
+            H5Pset_deflate(prop, 6);
         }
     }
 
@@ -79,7 +79,7 @@ h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
 }
 
 h5attr h5dset::create_attribute(string name, dtype datatype_,
-        dspace dataspace) {
+        dspace dataspace) const {
 
     auto new_attr = h5attr(name, dset_id, datatype_, dataspace);
     return new_attr;
@@ -91,15 +91,15 @@ void h5dset::extend(vector<hsize_t> size) {
 }
 
 
-void h5dset::write(const void* data) {
-    status = H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
+void h5dset::write(const void* data) const {
+    H5Dwrite(dset_id, datatype, H5S_ALL, H5S_ALL,
            H5P_DEFAULT, data);
 }
 
 void h5dset::select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count, std::vector<hsize_t> stride, std::vector<hsize_t> block) {
     
     select(offset, count, stride, block);
-    status = H5Dwrite(dset_id, datatype, memspace, filespace, 
+    H5Dwrite(dset_id, datatype, memspace, filespace, 
                  H5P_DEFAULT, data);
     H5Sclose(memspace);
     H5Sclose(filespace);
@@ -118,46 +118,46 @@ void h5dset::append(const void* data) {
     select_write(data, offset, count);
 }
 
-void h5dset::read(void* dest) {
-    status = H5Dread(dset_id, datatype, H5S_ALL, H5S_ALL,
+void h5dset::read(void* dest) const {
+    H5Dread(dset_id, datatype, H5S_ALL, H5S_ALL,
            H5P_DEFAULT, dest);
 }
 
 void h5dset::select_read(void* dest, std::vector<hsize_t> offset, std::vector<hsize_t> count, std::vector<hsize_t> stride, std::vector<hsize_t> block) {
     
     select(offset, count, stride, block);
-    status = H5Dread(dset_id, datatype, memspace, filespace, 
+    H5Dread(dset_id, datatype, memspace, filespace, 
                  H5P_DEFAULT, dest);
     H5Sclose(memspace);
     H5Sclose(filespace);
 }
 
-h5attr h5dset::open_attribute(string name) {
+h5attr h5dset::open_attribute(string name) const {
     hid_t attr_id = H5Aopen(dset_id, name.c_str(), H5P_DEFAULT); 
     auto new_attr = h5attr(attr_id);
     return new_attr;
 }
 
-h5attr h5dset::open_attribute(hsize_t id) {
+h5attr h5dset::open_attribute(hsize_t id) const {
     hid_t attr_id = H5Aopen_idx(dset_id, id); 
     auto new_attr = h5attr(attr_id);
     return new_attr;
 }
 
-hsize_t h5dset::num_attrs() {
+hsize_t h5dset::num_attrs() const {
     return H5Aget_num_attrs(dset_id);
 }
 
 
-const dspace h5dset::get_dspace() {
+const dspace h5dset::get_dspace() const {
     return dataspace;
 };
 
-hid_t h5dset::get_dtype() {
+hid_t h5dset::get_dtype() const {
     return H5Tget_class(datatype);
 };
 
-const string h5dset::get_name() {
+string h5dset::get_name() const {
     return name;
 }
 
@@ -178,7 +178,7 @@ void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,
                     vector<hsize_t> stride, vector<hsize_t> block) {
 
     filespace = H5Dget_space(dset_id);
-    status = H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offset.data(),
+    H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offset.data(),
             stride.data(), count.data(), block.data());
     memspace = H5Screate_simple(dataspace.drank, count.data(), nullptr);
 }
