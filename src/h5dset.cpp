@@ -49,8 +49,12 @@ h5dset::h5dset(string name, hid_t where, hid_t datatype_, dspace dataspace):
         }
     }
 
-    dspace_id = H5Screate_simple(dataspace.drank, dataspace.dims.data(), 
+    if (dataspace.dims.size() == 0)
+        dspace_id = H5Screate(H5S_SCALAR);
+    else
+        dspace_id = H5Screate_simple(dataspace.drank, dataspace.dims.data(), 
                                  dataspace.max_dims.data());
+
     dset_id = H5Dcreate2(where, name.c_str(), datatype,
                     dspace_id, H5P_DEFAULT, prop,
                     H5P_DEFAULT);
