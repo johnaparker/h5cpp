@@ -134,8 +134,10 @@ h5dset h5group::create_or_open_dataset(string name, dtype datatype, dspace datas
         return create_dataset(name, datatype, dataspace);
 }
 
-void h5group::create_reference(void* refer, string obj_name) const {
-    H5Rcreate(refer, group_id, obj_name.c_str(),H5R_OBJECT,-1);
+h5ref h5group::create_reference(string obj_name) const {
+    h5ref w;
+    H5Rcreate(&w, group_id, obj_name.c_str(),H5R_OBJECT,-1);
+    return w;
 }
 
 bool h5group::object_exists(string name) const {

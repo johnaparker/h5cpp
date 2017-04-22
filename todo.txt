@@ -1,3 +1,5 @@
+[ ] dspace constuctor with initializer list
+
 [ ] Add code to loop through groups or datasets in a file or group
     [ ] Add loop.cpp test to test these
 [ ] Probably add reference class...we need to know what a reference is pointing to

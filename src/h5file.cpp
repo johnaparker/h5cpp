@@ -179,8 +179,11 @@ h5dset h5file::create_or_open_dataset(string name, dtype datatype, dspace datasp
         return create_dataset(name, datatype, dataspace);
 }
 
-void h5file::create_reference(void* refer, string obj_name) const {
-    H5Rcreate(refer, file_id, obj_name.c_str(),H5R_OBJECT,-1);
+h5ref h5file::create_reference(string obj_name) const {
+    h5ref w;
+    //cast w to void*  if needed
+    H5Rcreate(&w, file_id, obj_name.c_str(),H5R_OBJECT,-1);
+    return w;
 }
 
 bool h5file::object_exists(string name) const {

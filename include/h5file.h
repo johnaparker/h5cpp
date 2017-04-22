@@ -56,7 +56,7 @@ public:
     h5group create_or_open_group(std::string name) const;
     h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace) const;
     
-    void create_reference(void* refer, std::string obj_name) const;
+    h5ref create_reference(std::string obj_name) const;
 
     bool object_exists(std::string name) const;
 

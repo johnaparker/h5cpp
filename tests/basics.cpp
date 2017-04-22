@@ -78,8 +78,7 @@ int main() {
     //dset.write(A.data());
     //
     auto a5 = f.create_attribute("pointer", dtype::Reference);
-    h5ref w;
-    f.create_reference(&w, "/data"), 
+    auto w = f.create_reference("/data");
     a5.write(&w);
     }
 
