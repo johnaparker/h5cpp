@@ -49,7 +49,7 @@ h5dset::h5dset(string name, hid_t where, hid_t datatype_, dspace dataspace):
         }
     }
 
-    if (dataspace.dims.size() == 0)
+    if (dataspace.isScalar())
         dspace_id = H5Screate(H5S_SCALAR);
     else
         dspace_id = H5Screate_simple(dataspace.drank, dataspace.dims.data(), 

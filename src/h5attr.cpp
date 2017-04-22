@@ -33,7 +33,7 @@ h5attr::h5attr(string name, hid_t where, dtype datatype_, dspace dataspace):
             name(name), dataspace(dataspace) {
 
     datatype = getDtype(datatype_);
-    if (dataspace.dims.size() == 0)
+    if (dataspace.isScalar())
         dspace_id = H5Screate(H5S_SCALAR);
     else
         dspace_id = H5Screate_simple(dataspace.drank, dataspace.dims.data(), nullptr);

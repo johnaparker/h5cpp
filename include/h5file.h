@@ -36,9 +36,9 @@ public:
     //h5file& operator=(const h5file& rhs); 
 
     h5group create_group(std::string name) const;
-    h5dset create_dataset(std::string name, dtype datatype, dspace dataspace) const;
-    h5dset create_dataset(std::string name, hid_t datatype, dspace dataspace) const;
-    h5dset create_dataset(std::string name, dtypeCompound datatype, dspace dataspace) const;
+    h5dset create_dataset(std::string name, dtype datatype, dspace dataspace = dspace()) const;
+    h5dset create_dataset(std::string name, hid_t datatype, dspace dataspace = dspace()) const;
+    h5dset create_dataset(std::string name, dtypeCompound datatype, dspace dataspace = dspace()) const;
     h5attr create_attribute(std::string name, dtype datatype, dspace dataspace = dspace()) const;
 
     h5group open_group(std::string name) const;

@@ -18,8 +18,8 @@ class h5dset {
 
 public:
     h5dset();
-    h5dset(std::string name, hid_t where, dtype datatype_, dspace dataspace);
-    h5dset(std::string name, hid_t where, hid_t datatype_, dspace dataspace);
+    h5dset(std::string name, hid_t where, dtype datatype_, dspace dataspace = dspace());
+    h5dset(std::string name, hid_t where, hid_t datatype_, dspace dataspace = dspace());
     h5dset(const h5dset&) = delete;
     h5dset(h5dset&&);
     h5dset& operator=(h5dset&) = delete;

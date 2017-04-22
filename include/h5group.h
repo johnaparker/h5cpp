@@ -23,8 +23,8 @@ public:
     explicit h5group(hid_t group_id);
 
     h5group create_group(std::string name) const;
-    h5dset create_dataset(std::string name, dtype datatype, dspace dataspace) const;
-    h5dset create_dataset(std::string name, dtypeCompound datatype, dspace dataspace) const;
+    h5dset create_dataset(std::string name, dtype datatype, dspace dataspace = dspace()) const;
+    h5dset create_dataset(std::string name, dtypeCompound datatype, dspace dataspace = dspace()) const;
     h5attr create_attribute(std::string name, dtype datatype, dspace dataspace = dspace()) const;
 
     h5group open_group(std::string name) const;
@@ -40,7 +40,7 @@ public:
     hsize_t get_object_type(hsize_t idx) const;  // get object type by id
 
     h5group create_or_open_group(std::string name) const;
-    h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace) const;
+    h5dset create_or_open_dataset(std::string name, dtype datatype, dspace dataspace = dspace()) const;
 
     h5ref create_reference(std::string obj_name) const;
 

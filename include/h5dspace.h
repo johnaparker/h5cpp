@@ -14,6 +14,7 @@ struct dspace {
             std::vector<hsize_t> chunk_dims={}, bool compressed=false);
     explicit dspace(hid_t dspace_id, hid_t prop_id = H5P_DEFAULT);
     dspace() = default;
+    bool isScalar();
 
     hsize_t drank;
     std::vector<hsize_t> dims, max_dims, chunk_dims;

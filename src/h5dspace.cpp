@@ -52,4 +52,10 @@ void dspace::set_bools() {
         chunked = true;
 }
 
+bool dspace::isScalar() {
+    if (dims.size() == 0)
+        return true;
+    return false;
+}
+
 }
