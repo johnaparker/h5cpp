@@ -13,6 +13,7 @@ enum class dtype {
     Long, ULong,
     LLong, ULLong,
     Float, Double,
+    Complexd, Complexf,
     String,
     Reference,
 };

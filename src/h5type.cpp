@@ -1,5 +1,6 @@
 #include "h5type.h"
 #include <stdexcept>
+#include <complex>
 
 using namespace std;
 
@@ -21,6 +22,22 @@ hid_t getDtype(dtype datatype) {
 
         case dtype::String: 
             return H5Tcreate(H5T_STRING, H5T_VARIABLE); break;
+
+        case dtype::Complexf: {
+            dtypeCompound complexType (sizeof(complex<float>));
+            complexType.insert("real", dtype::Double);
+            complexType.insert("imag", dtype::Double);
+            return complexType.fileType();
+            break;
+        }
+
+        case dtype::Complexd: {
+            dtypeCompound complexType (sizeof(complex<double>));
+            complexType.insert("real", dtype::Double);
+            complexType.insert("imag", dtype::Double);
+            return complexType.fileType();
+            break;
+        }
 
         default: throw invalid_argument("No corresponding H5datatype to your datatype");
     }
