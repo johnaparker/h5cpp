@@ -17,7 +17,7 @@ find_library(h5_lib hdf5)
 if(NOT h5_lib)
     message(FATAL_ERROR "hdf5 library not found")
 else()
-    message(STATUS "hdf5 library found")
+    message(STATUS "hdf5 library found: ${h5_lib}")
 endif()
 
 #Include the headers
@@ -67,6 +67,11 @@ add_test(Files files)
 add_executable(read tests/read.cpp)
 target_link_libraries(read ${PROJECT_LINK_LIBS} )
 add_test(Read read)
+
+#Eigen Test
+add_executable(eigen tests/eigen.cpp)
+target_link_libraries(eigen ${PROJECT_LINK_LIBS} )
+add_test(Eigen eigen)
 
 #Set the location for library installation
 install(TARGETS h5cpp DESTINATION lib)

@@ -8,4 +8,6 @@
 #include "h5cpp/h5dspace.h"
 #include "h5cpp/h5type.h"
 
+#include "h5cpp/eigen.h"
+
 #endif
