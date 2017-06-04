@@ -9,8 +9,7 @@
 #include <eigen3/Eigen/Core>
 #include <eigen3/unsupported/Eigen/CXX11/Tensor>
 
-#include "h5attr.h"
-#include "h5dspace.h"
+#include "h5cpp.h"
 
 #include <typeindex>
 #include <typeinfo>
@@ -19,10 +18,7 @@
 
 namespace h5cpp {
 
-    std::unordered_map<std::type_index, dtype> tmap {
-        {typeid(double), dtype::Double},
-        {typeid(int), dtype::Int},
-    };
+    extern std::unordered_map<std::type_index, dtype> type_map;
 
     template<class T, class G>
     h5cpp::h5dset write_matrix(const Eigen::Matrix<T,Eigen::Dynamic,Eigen::Dynamic,Eigen::RowMajor> &m, const G &group, std::string name) {
@@ -31,7 +27,7 @@ namespace h5cpp {
         auto shape = std::vector<hsize_t>{m.rows(), m.cols()};
 
         auto dspace = h5cpp::dspace(shape);
-        auto dset = group.create_dataset(name, tmap[typeid(T)], dspace);
+        auto dset = group.create_dataset(name, type_map[typeid(T)], dspace);
         dset.write(m.data());
         return dset;
     }
