@@ -5,9 +5,9 @@ enable_testing()
 #Compiler flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wl,--no-as-needed -ldl")
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "RELEASE")
+if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-elseif(${CMAKE_BUILD_TYPE} STREQUAL "DEBUG")
+elseif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -g -Og")
 endif()
 message(STATUS "FLAGS: ${CMAKE_CXX_FLAGS}")
