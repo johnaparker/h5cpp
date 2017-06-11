@@ -25,8 +25,8 @@ hid_t getDtype(dtype datatype) {
 
         case dtype::Complexf: {
             dtypeCompound complexType (sizeof(complex<float>));
-            complexType.insert("real", dtype::Double);
-            complexType.insert("imag", dtype::Double);
+            complexType.insert("real", dtype::Float);
+            complexType.insert("imag", dtype::Float);
             return complexType.fileType();
             break;
         }
@@ -35,6 +35,14 @@ hid_t getDtype(dtype datatype) {
             dtypeCompound complexType (sizeof(complex<double>));
             complexType.insert("real", dtype::Double);
             complexType.insert("imag", dtype::Double);
+            return complexType.fileType();
+            break;
+        }
+
+        case dtype::Complexi: {
+            dtypeCompound complexType (sizeof(complex<int>));
+            complexType.insert("real", dtype::Int);
+            complexType.insert("imag", dtype::Int);
             return complexType.fileType();
             break;
         }

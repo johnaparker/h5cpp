@@ -1,10 +1,15 @@
+#include <complex>
 #include "eigen.h" 
 
 namespace h5cpp {
 
     std::unordered_map<std::type_index, dtype> type_map {
         {typeid(double), dtype::Double},
+        {typeid(float), dtype::Float},
         {typeid(int), dtype::Int},
+        {typeid(std::complex<double>), dtype::Complexd},
+        {typeid(std::complex<float>), dtype::Complexf},
+        {typeid(std::complex<int>), dtype::Complexi},
     };
 
     h5cpp::dspace get_eigen_dspace(std::vector<hsize_t> dims, append a) {

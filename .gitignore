@@ -12,3 +12,6 @@ a.out
 
 # tag file
 tags
+
+# other
+.vscode
