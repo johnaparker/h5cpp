@@ -10,6 +10,8 @@ namespace h5cpp {
         {typeid(std::complex<double>), dtype::Complexd},
         {typeid(std::complex<float>), dtype::Complexf},
         {typeid(std::complex<int>), dtype::Complexi},
+        {typeid(std::string), dtype::String},
+        {typeid(h5ref), dtype::Reference},
     };
 
     h5cpp::dspace get_eigen_dspace(std::vector<hsize_t> dims, append a) {
