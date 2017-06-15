@@ -27,7 +27,7 @@ public:
 
     const dspace get_dspace() const;
     hid_t get_dtype() const;
-    std::string get_name() const;
+    std::string get_name() const {return name;}
 
     void close();
     ~h5attr();

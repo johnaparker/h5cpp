@@ -71,10 +71,6 @@ hid_t h5attr::get_dtype() const {
     return H5Tget_class(datatype);
 };
 
-string h5attr::get_name() const {
-    return name;
-}
-
 void h5attr::close() {
     if (attr_id != -1) {
         H5Aclose(attr_id);

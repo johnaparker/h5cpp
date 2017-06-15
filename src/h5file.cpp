@@ -196,10 +196,6 @@ bool h5file::object_exists(string name) const {
         return false;
 }
 
-string h5file::get_name() const {
-    return filename;
-}
-
 void h5file::close() {
     if (file_id != -1) {
         H5Pclose(prop_id);

@@ -46,6 +46,8 @@ public:
 
     bool object_exists(std::string name) const;
 
+    std::string get_name() const {return name;}
+
     void close();
     ~h5group();
 

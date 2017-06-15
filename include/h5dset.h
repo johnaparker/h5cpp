@@ -42,9 +42,9 @@ public:
     h5attr open_attribute(hsize_t id) const;
     hsize_t num_attrs() const;
 
-    const dspace get_dspace() const;
-    hid_t get_dtype() const;
-    std::string get_name() const;
+    const dspace get_dspace() const {return dataspace;}
+    hid_t get_dtype() const {return H5Tget_class(datatype);}
+    std::string get_name() const {return name;}
 
     void close();
     ~h5dset();

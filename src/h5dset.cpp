@@ -149,17 +149,7 @@ hsize_t h5dset::num_attrs() const {
 }
 
 
-const dspace h5dset::get_dspace() const {
-    return dataspace;
-};
 
-hid_t h5dset::get_dtype() const {
-    return H5Tget_class(datatype);
-};
-
-string h5dset::get_name() const {
-    return name;
-}
 
 void h5dset::close() {
     if (dset_id != -1) {
