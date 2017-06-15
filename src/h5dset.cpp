@@ -64,12 +64,8 @@ h5dset::h5dset(string name, hid_t where, dtype datatype_, dspace dataspace):
       h5dset(name, where, getDtype(datatype_), dataspace) {}
 
 h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
-
-    const int MAX_NAME = 1024; 
-    char dset_name[MAX_NAME];
-
-    H5Iget_name(dset_id, dset_name, MAX_NAME); 
-    name = string(dset_name);
+    auto path = get_path();
+    name = path.substr( path.rfind("/") );
 
     dspace_id = H5Dget_space(dset_id);
     datatype = H5Dget_type(dset_id);
@@ -149,7 +145,11 @@ hsize_t h5dset::num_attrs() const {
 }
 
 
-
+std::string h5dset::get_path() const {
+    char c_path[MAX_NAME];
+    H5Iget_name(dset_id, c_path, MAX_NAME); 
+    return string(c_path);
+}
 
 void h5dset::close() {
     if (dset_id != -1) {

@@ -6,8 +6,6 @@ using namespace std;
 
 namespace h5cpp {
 
-const int MAX_NAME = 1024;
-
 h5group::h5group() {
     group_id = -1;
 }
@@ -36,9 +34,8 @@ h5group::h5group(string name, hid_t where): name(name) {
 }
 
 h5group::h5group(hid_t group_id): group_id(group_id) {
-    char group_name[MAX_NAME];
-    H5Iget_name(group_id, group_name, MAX_NAME); 
-    name = string(group_name);
+    auto path = get_path();
+    name = path.substr( path.rfind("/") );
 }
 
 h5group h5group::create_group(string name) const {
@@ -148,6 +145,12 @@ bool h5group::object_exists(string name) const {
         return true;
     else
         return false;
+}
+
+std::string h5group::get_path() const {
+    char path[MAX_NAME];
+    H5Iget_name(group_id, path, MAX_NAME); 
+    return string(path);
 }
 
 void h5group::close() {

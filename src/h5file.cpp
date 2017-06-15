@@ -7,8 +7,6 @@ using namespace std;
 
 namespace h5cpp {
 
-const int MAX_NAME = 1024;
-
 h5file::h5file() {
     file_id = -1;
 }

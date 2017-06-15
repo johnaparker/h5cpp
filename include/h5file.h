@@ -61,6 +61,7 @@ public:
     bool object_exists(std::string name) const;
 
     std::string get_name() const {return filename;}
+    std::string get_path() const {return "/";}
 
     void close();
     ~h5file();

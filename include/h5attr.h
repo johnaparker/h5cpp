@@ -12,6 +12,8 @@
 
 namespace h5cpp {
 
+extern const int MAX_NAME;
+
 class h5attr {
 public:
     h5attr(const h5attr&) = delete;
@@ -28,6 +30,7 @@ public:
     const dspace get_dspace() const;
     hid_t get_dtype() const;
     std::string get_name() const {return name;}
+    std::string get_path() const;
 
     void close();
     ~h5attr();

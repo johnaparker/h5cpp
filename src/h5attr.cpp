@@ -6,6 +6,8 @@ using namespace std;
 
 namespace h5cpp {
 
+const int MAX_NAME = 1024;
+
 h5attr::h5attr(h5attr&& other): name(other.name), attr_id(other.attr_id), 
     dataspace(other.dataspace), datatype(other.datatype) {
         //set other to closed
@@ -43,7 +45,6 @@ h5attr::h5attr(string name, hid_t where, dtype datatype_, dspace dataspace):
 }
 
 h5attr::h5attr(hid_t attr_id): attr_id(attr_id) {
-    const int MAX_NAME = 1024;
     char attr_name[MAX_NAME];
     H5Aget_name(attr_id, MAX_NAME, attr_name); 
     name = string(attr_name);
@@ -70,6 +71,12 @@ const dspace h5attr::get_dspace() const {
 hid_t h5attr::get_dtype() const {
     return H5Tget_class(datatype);
 };
+
+std::string h5attr::get_path() const {
+    char c_path[MAX_NAME];
+    H5Iget_name(attr_id, c_path, MAX_NAME); 
+    return string(c_path) + string("/") + get_name();
+}
 
 void h5attr::close() {
     if (attr_id != -1) {

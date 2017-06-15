@@ -45,6 +45,7 @@ public:
     const dspace get_dspace() const {return dataspace;}
     hid_t get_dtype() const {return H5Tget_class(datatype);}
     std::string get_name() const {return name;}
+    std::string get_path() const;
 
     void close();
     ~h5dset();
