@@ -35,7 +35,7 @@ h5group::h5group(string name, hid_t where): name(name) {
 
 h5group::h5group(hid_t group_id): group_id(group_id) {
     auto path = get_path();
-    name = path.substr( path.rfind("/") );
+    name = path.substr( path.rfind("/") + 1 );
 }
 
 h5group h5group::create_group(string name) const {

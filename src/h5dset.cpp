@@ -65,7 +65,7 @@ h5dset::h5dset(string name, hid_t where, dtype datatype_, dspace dataspace):
 
 h5dset::h5dset(hid_t dset_id): dset_id(dset_id) {
     auto path = get_path();
-    name = path.substr( path.rfind("/") );
+    name = path.substr( path.rfind("/") + 1 );
 
     dspace_id = H5Dget_space(dset_id);
     datatype = H5Dget_type(dset_id);
