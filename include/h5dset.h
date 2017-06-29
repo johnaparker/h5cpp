@@ -30,13 +30,13 @@ public:
 
     void extend(std::vector<hsize_t> size);
     void write(const void* data) const;
-    void select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count,
-                std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
+    void select_write(const void* data, const std::vector<hsize_t> &offset, const std::vector<hsize_t> &count,
+                const std::vector<hsize_t> &stride={}, const std::vector<hsize_t> &block={});
     void append(const void* data);
 
     void read(void* dest) const;
-    void select_read(void* dest, std::vector<hsize_t> offset, std::vector<hsize_t> count,
-                std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
+    void select_read(void* dest, const std::vector<hsize_t> &offset, const std::vector<hsize_t> &count,
+                const std::vector<hsize_t> &stride={}, const std::vector<hsize_t> &block={});
 
     h5attr open_attribute(std::string name) const;
     h5attr open_attribute(hsize_t id) const;
@@ -51,8 +51,8 @@ public:
     ~h5dset();
 
 private:
-    void select(std::vector<hsize_t> offset, std::vector<hsize_t> count,
-                std::vector<hsize_t> stride={}, std::vector<hsize_t> block={});
+    void select(const std::vector<hsize_t> &offset,    const std::vector<hsize_t> &count,
+                const std::vector<hsize_t> &stride={}, const std::vector<hsize_t> &block={});
 
 private:
     std::string name;

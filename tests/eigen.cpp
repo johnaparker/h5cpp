@@ -30,5 +30,7 @@ int main() {
     dset = write_tensor(t, f, "tensor", append::True);
     dset.append(t.data());
 
+    double scalar = 1.2;
+    dset = write_scalar(&scalar, g, "scalar", append::True);
 
 }

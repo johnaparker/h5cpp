@@ -76,7 +76,7 @@ namespace h5cpp {
 
     template<class T, class G>
     h5cpp::h5dset write_scalar(const T &scalar, const G &group, std::string name, append a = append::False) {
-        auto ds = bool(a) ? get_eigen_dspace({1}, a) : dspace();
+        auto ds = bool(a) ? get_eigen_dspace({}, a) : dspace();
         auto dset = group.create_dataset(name, type_map[typeid(T)], ds);
         dset.write(&scalar);
         return dset;
@@ -85,7 +85,7 @@ namespace h5cpp {
     //specialization of write_scalar for attribute in a dataset
     template<class T>
     h5cpp::h5attr write_scalar(const T &scalar, const h5dset &dset, std::string name, append a = append::False) {
-        auto ds = bool(a) ? get_eigen_dspace({1}, a) : dspace();
+        auto ds = bool(a) ? get_eigen_dspace({}, a) : dspace();
         auto attr = dset.create_attribute(name, type_map[typeid(T)], ds);
         attr.write(&scalar);
         return attr;

@@ -92,7 +92,7 @@ void h5dset::write(const void* data) const {
            H5P_DEFAULT, data);
 }
 
-void h5dset::select_write(const void* data, std::vector<hsize_t> offset, std::vector<hsize_t> count, std::vector<hsize_t> stride, std::vector<hsize_t> block) {
+void h5dset::select_write(const void* data, const std::vector<hsize_t> &offset, const std::vector<hsize_t> &count, const std::vector<hsize_t> &stride, const std::vector<hsize_t> &block) {
     
     select(offset, count, stride, block);
     H5Dwrite(dset_id, datatype, memspace, filespace, 
@@ -103,13 +103,13 @@ void h5dset::select_write(const void* data, std::vector<hsize_t> offset, std::ve
 
 void h5dset::append(const void* data) {
     vector<hsize_t> new_dims(dataspace.dims);
-    new_dims[dataspace.drank-1] += 1;
+    new_dims.back() += 1;
     extend(new_dims);
 
     vector<hsize_t> offset(dataspace.drank, 0);
-    offset[dataspace.drank-1] = new_dims[dataspace.drank-1] - 1;
+    offset.back() = new_dims.back() - 1;
     vector<hsize_t> count(new_dims);
-    count[dataspace.drank-1] = 1;
+    count.back() = 1;
 
     select_write(data, offset, count);
 }
@@ -119,7 +119,7 @@ void h5dset::read(void* dest) const {
            H5P_DEFAULT, dest);
 }
 
-void h5dset::select_read(void* dest, std::vector<hsize_t> offset, std::vector<hsize_t> count, std::vector<hsize_t> stride, std::vector<hsize_t> block) {
+void h5dset::select_read(void* dest, const std::vector<hsize_t> &offset, const std::vector<hsize_t> &count, const std::vector<hsize_t> &stride, const std::vector<hsize_t> &block) {
     
     select(offset, count, stride, block);
     H5Dread(dset_id, datatype, memspace, filespace, 
@@ -164,8 +164,8 @@ h5dset::~h5dset() {
     close();
 } 
 
-void h5dset::select(vector<hsize_t> offset, vector<hsize_t> count,
-                    vector<hsize_t> stride, vector<hsize_t> block) {
+void h5dset::select(const vector<hsize_t> &offset, const vector<hsize_t> &count,
+                    const vector<hsize_t> &stride, const vector<hsize_t> &block) {
 
     filespace = H5Dget_space(dset_id);
     H5Sselect_hyperslab(filespace, H5S_SELECT_SET, offset.data(),
