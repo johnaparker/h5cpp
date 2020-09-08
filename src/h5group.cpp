@@ -140,7 +140,7 @@ h5ref h5group::create_reference(string obj_name) const {
 bool h5group::object_exists(string name) const {
     error_lock err_lock;
     H5O_info_t object_info;
-    herr_t status = H5Oget_info_by_name(group_id, name.c_str(), &object_info, H5P_DEFAULT);
+    herr_t status = H5Oget_info_by_name(group_id, name.c_str(), &object_info, H5P_DEFAULT, H5P_DEFAULT);
     if (status >= 0)
         return true;
     else

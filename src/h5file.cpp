@@ -187,7 +187,7 @@ h5ref h5file::create_reference(string obj_name) const {
 bool h5file::object_exists(string name) const {
     herr_t status = H5Eset_auto1(nullptr, nullptr);
     H5O_info_t object_info;
-    status = H5Oget_info_by_name(file_id, name.c_str(), &object_info, H5P_DEFAULT);
+    status = H5Oget_info_by_name(file_id, name.c_str(), &object_info, H5P_DEFAULT, H5P_DEFAULT);
     if (status >= 0)
         return true;
     else
